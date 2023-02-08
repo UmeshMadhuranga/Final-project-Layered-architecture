@@ -1,0 +1,39 @@
+.sign-button{
+    -fx-background-color: #F68A1F ;
+    -fx-background-radius: 10;
+}
+
+.login-button{
+    -fx-background-color: #42A5F5 ;
+    -fx-background-radius: 10;
+}
+
+.back-button{
+    -fx-background-color: #B5C1C9 ;
+    -fx-background-radius: 10;
+}
+
+.cancel-button{
+    -fx-background-color: #d63031 ;
+    -fx-background-radius: 10;
+}
+
+.cancel1-button{
+    -fx-background-color: #ff6b6b ;
+    -fx-background-radius: 10;
+}
+
+.adminLogin-button{
+    -fx-background-color: #f19066 ;
+    -fx-background-radius: 10;
+}
+
+.conform-button{
+    -fx-background-color: #1e90ff ;
+    -fx-background-radius: 10;
+}
+
+.ok-button{
+    -fx-background-color: #70a1ff ;
+    -fx-background-radius: 10;
+}

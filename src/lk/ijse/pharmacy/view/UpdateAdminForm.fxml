@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="244.0" prefWidth="512.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pharmacy.controller.UpdateAdminFormController">
+   <children>
+      <Label layoutX="42.0" layoutY="18.0" text="User ID">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="48.0" text="User Name">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="138.0" text="Role">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="78.0" text="E-mail">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="108.0" text="Address">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtUserName" layoutX="178.0" layoutY="46.0" onAction="#txtUserNameOnAction" prefHeight="25.0" prefWidth="291.0" />
+      <JFXTextField fx:id="txtEmail" layoutX="178.0" layoutY="76.0" onAction="#txtEmailOnAction" prefHeight="25.0" prefWidth="291.0" />
+      <JFXTextField fx:id="txtAddress" layoutX="178.0" layoutY="106.0" onAction="#txtAddressOnAction" prefHeight="25.0" prefWidth="291.0" />
+      <JFXButton layoutX="271.0" layoutY="201.0" onAction="#btnUpdateUserOnAction" prefHeight="29.0" prefWidth="112.0" styleClass="login-button" stylesheets="@Style.css" text="Update Admin">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="392.0" layoutY="201.0" onAction="#btnCancelOnAction" prefHeight="29.0" prefWidth="78.0" styleClass="cancel-button" stylesheets="@Style.css" text="Cancel">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="42.0" layoutY="161.0" text="Password">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtPassword" layoutX="178.0" layoutY="166.0" onAction="#txtPasswordOnAction" prefHeight="25.0" prefWidth="291.0" promptText="ex: 1234" />
+      <JFXRadioButton layoutX="178.0" layoutY="138.0" selected="true" text="Admin">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="r1btnGroup" />
+         </toggleGroup>
+      </JFXRadioButton>
+      <JFXRadioButton layoutX="292.0" layoutY="139.0" text="Employee" toggleGroup="$r1btnGroup">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXRadioButton>
+      <JFXComboBox fx:id="cmbUserID" layoutX="178.0" layoutY="16.0" onAction="#cmbUserIDOnAction" prefHeight="25.0" prefWidth="112.0" promptText="U001" />
+   </children>
+</AnchorPane>

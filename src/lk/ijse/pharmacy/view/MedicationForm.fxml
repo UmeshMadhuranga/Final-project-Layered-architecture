@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="645.0" prefWidth="1160.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pharmacy.controller.MedicationFormController">
+   <children>
+      <TableView fx:id="tblMedication" layoutX="50.0" layoutY="289.0" prefHeight="301.0" prefWidth="905.0">
+         <columns>
+            <TableColumn fx:id="colCode" prefWidth="129.0" text="Code" />
+            <TableColumn fx:id="colDescription" prefWidth="256.6666564941406" text="Description" />
+            <TableColumn fx:id="colExpirationDate" prefWidth="176.33334350585938" text="Expiration Date" />
+            <TableColumn fx:id="colQty" prefWidth="173.0" text="Qty" />
+            <TableColumn fx:id="colPrice" prefWidth="171.0" text="Price" />
+         </columns>
+      </TableView>
+      <JFXButton layoutX="877.0" layoutY="602.0" onAction="#btnReloadOnAction" prefHeight="29.0" prefWidth="78.0" styleClass="cancel1-button" stylesheets="@Style.css" text="Reload">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane fx:id="pane1" layoutX="443.0" layoutY="26.0" prefHeight="244.0" prefWidth="512.0" />
+      <Pane layoutX="50.0" layoutY="26.0" prefHeight="244.0" prefWidth="363.0" style="-fx-background-color: #d1ccc0;">
+         <children>
+            <ComboBox fx:id="cmbOption" layoutX="106.0" layoutY="110.0" prefHeight="25.0" prefWidth="152.0" />
+            <Label layoutX="33.0" layoutY="62.0" text="Please select the option what do you need">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="153.0" layoutY="143.0" onAction="#btnOkOnAction" prefHeight="25.0" prefWidth="57.0" styleClass="ok-button" stylesheets="@Style.css" text="Ok" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

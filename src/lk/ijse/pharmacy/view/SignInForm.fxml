@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="368.0" prefWidth="600.0" style="-fx-background-color: f7d794;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pharmacy.controller.SignInFormController">
+   <children>
+      <Label layoutX="24.0" layoutY="100.0" text="User ID" AnchorPane.leftAnchor="25.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="131.0" text="User Name" AnchorPane.leftAnchor="25.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="262.0" text="Password" AnchorPane.leftAnchor="25.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="164.0" text="E-mail" AnchorPane.leftAnchor="25.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="198.0" text="Address" AnchorPane.leftAnchor="25.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="231.0" text="Role" AnchorPane.leftAnchor="25.0">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtUserID" labelFloat="true" layoutX="144.0" layoutY="98.0" onAction="#txtUserIDOnAction" prefHeight="25.0" prefWidth="300.0" promptText="ex: U001" />
+      <JFXTextField fx:id="txtUserName" layoutX="144.0" layoutY="129.0" onAction="#txtUserNameOnAction" prefHeight="25.0" prefWidth="300.0" />
+      <JFXTextField fx:id="txtEmail" layoutX="144.0" layoutY="162.0" onAction="#txtEmailOnAction" prefHeight="25.0" prefWidth="300.0" />
+      <JFXTextField fx:id="txtAddress" layoutX="144.0" layoutY="196.0" onAction="#txtAddressOnAction" prefHeight="25.0" prefWidth="300.0" />
+      <JFXRadioButton layoutX="149.0" layoutY="232.0" selected="true" text="Admin">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="rbtnGroup" />
+         </toggleGroup>
+      </JFXRadioButton>
+      <JFXRadioButton layoutX="263.0" layoutY="233.0" text="Employee" toggleGroup="$rbtnGroup">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXRadioButton>
+      <JFXButton layoutX="408.0" layoutY="309.0" onAction="#btnAddUserOnAction" prefHeight="29.0" prefWidth="78.0" styleClass="login-button" stylesheets="@Style.css" text="Add User">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="495.0" layoutY="309.0" onAction="#btnCancelOnAction" prefHeight="29.0" prefWidth="78.0" styleClass="cancel-button" stylesheets="@Style.css" text="Cancel" AnchorPane.rightAnchor="25.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="209.0" layoutY="26.0" text="Add new User" textFill="#3462bc">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtPassword" layoutX="142.0" layoutY="260.0" onAction="#txtPasswordOnAction" prefHeight="25.0" prefWidth="300.0" promptText="ex: 1234" />
+   </children>
+</AnchorPane>

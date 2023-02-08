@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="645.0" prefWidth="1160.0" style="-fx-background-color: #f1f2f6;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pharmacy.controller.SupplierFormController">
+   <children>
+      <TableView fx:id="tblSupplier" layoutX="50.0" layoutY="289.0" prefHeight="301.0" prefWidth="905.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="289.0">
+         <columns>
+            <TableColumn fx:id="colSId" prefWidth="129.0" text="Supplier ID" />
+            <TableColumn fx:id="colName" prefWidth="201.66668701171875" text="Supplier Name" />
+            <TableColumn fx:id="colEmail" prefWidth="184.66668701171875" text="E-mail" />
+            <TableColumn fx:id="colAddress" prefWidth="218.66668701171875" text="Address" />
+            <TableColumn fx:id="colPhone" prefWidth="171.0" text="Tele-phone" />
+         </columns>
+      </TableView>
+      <JFXButton layoutX="877.0" layoutY="602.0" onAction="#btnReloadOnAction" prefHeight="29.0" prefWidth="78.0" styleClass="cancel1-button" stylesheets="@Style.css" text="Reload" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="877.0" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="602.0">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane fx:id="pane1" layoutX="443.0" layoutY="26.0" prefHeight="244.0" prefWidth="512.0" />
+      <Pane layoutX="50.0" layoutY="26.0" prefHeight="244.0" prefWidth="363.0" style="-fx-background-color: #d1ccc0;">
+         <children>
+            <ComboBox fx:id="cmbOption" layoutX="111.0" layoutY="110.0" prefHeight="25.0" prefWidth="141.0" />
+            <Label layoutX="33.0" layoutY="62.0" text="Please select the option what do you need">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="153.0" layoutY="143.0" onAction="#btnOkOnAction" prefHeight="25.0" prefWidth="57.0" styleClass="ok-button" stylesheets="@Style.css" text="Ok" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="645.0" prefWidth="1300.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pharmacy.controller.AdminLoginFormController">
+   <children>
+      <AnchorPane layoutX="10.0" prefHeight="645.0" prefWidth="277.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1160.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="645.0" fitWidth="265.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../assest/img/Theme.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="47.0" layoutY="211.0" onAction="#btnManageEmployeeOnAction" prefHeight="31.0" prefWidth="166.0" styleClass="adminLogin-button" stylesheets="@Style.css" text="Manage employee" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="211.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="47.0" layoutY="261.0" onAction="#btnManageSupplierOnAction" prefHeight="31.0" prefWidth="166.0" styleClass="adminLogin-button" stylesheets="@Style.css" text="Manage suppliers" AnchorPane.topAnchor="261.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="47.0" layoutY="311.0" onAction="#btnManageCustomerOnAction" prefHeight="31.0" prefWidth="166.0" styleClass="adminLogin-button" stylesheets="@Style.css" text="Manage customers" AnchorPane.topAnchor="311.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="47.0" layoutY="361.0" onAction="#btnManageOrdersOnAction" prefHeight="31.0" prefWidth="166.0" styleClass="adminLogin-button" stylesheets="@Style.css" text="Manage orders" AnchorPane.topAnchor="361.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="47.0" layoutY="411.0" onAction="#btnMedicationOnAction" prefHeight="31.0" prefWidth="166.0" styleClass="adminLogin-button" stylesheets="@Style.css" text="Medications" AnchorPane.topAnchor="411.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="108.0" fitWidth="130.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+               <image>
+                  <Image url="@../assest/logo/Subhash.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="85.0" layoutY="601.0" onAction="#btnLogOutOnAction" styleClass="back-button" stylesheets="@Style.css" text="Log out" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="601.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assest/logo/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label layoutX="130.0" layoutY="38.0" text="Subhash" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="38.0">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="147.0" layoutY="68.0" text="Pharmacy" AnchorPane.leftAnchor="147.0" AnchorPane.topAnchor="68.0">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="90.0" layoutY="131.0" text="(Admin panel)" textFill="#c44569">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="47.0" layoutY="457.0" onAction="#btnAdminOnAction" prefHeight="31.0" prefWidth="166.0" styleClass="adminLogin-button" stylesheets="@Style.css" text="Manage admin" AnchorPane.topAnchor="461.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane1" layoutX="261.0" layoutY="7.0" prefHeight="645.0" prefWidth="1160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="261.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>

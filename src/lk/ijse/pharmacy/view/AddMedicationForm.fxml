@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="244.0" prefWidth="512.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pharmacy.controller.AddMedicationFormController">
+   <children>
+      <Label layoutX="42.0" layoutY="38.0" text="Code">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="68.0" text="Description">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="158.0" text="Price">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="98.0" text="Expiration Date">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="128.0" text="Qty">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtCode" layoutX="178.0" layoutY="36.0" onAction="#txtCodeOnAction" prefHeight="25.0" prefWidth="291.0" />
+      <JFXTextField fx:id="txtDescription" layoutX="178.0" layoutY="66.0" onAction="#txtDescriptionOnAction" onMouseClicked="#txtDescriptionOnMouseClicked" prefHeight="25.0" prefWidth="291.0" />
+      <JFXTextField fx:id="txtQty" layoutX="178.0" layoutY="126.0" onAction="#txtQtyOnAction" onMouseClicked="#txtQtyOnMouseClicked" prefHeight="25.0" prefWidth="291.0" />
+      <JFXTextField fx:id="txtPrice" layoutX="178.0" layoutY="156.0" onAction="#txtPriceOnAction" onMouseClicked="#txtPriceOnMouseClicked" prefHeight="25.0" prefWidth="291.0" />
+      <JFXButton layoutX="255.0" layoutY="201.0" onAction="#btnAddMedication" prefHeight="29.0" prefWidth="128.0" styleClass="login-button" stylesheets="@Style.css" text="Add Medication">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="392.0" layoutY="201.0" onAction="#btnCancel" prefHeight="29.0" prefWidth="78.0" styleClass="cancel-button" stylesheets="@Style.css" text="Cancel">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </JFXButton>
+      <JFXDatePicker fx:id="txtExpirationDate" layoutX="178.0" layoutY="96.0" />
+   </children>
+</AnchorPane>
