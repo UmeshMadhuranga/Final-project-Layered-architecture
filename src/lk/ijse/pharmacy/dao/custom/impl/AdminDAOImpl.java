@@ -5,19 +5,16 @@ import lk.ijse.pharmacy.dao.Util.DBUtil;
 import lk.ijse.pharmacy.dao.custom.AdminDAO;
 import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
 import lk.ijse.pharmacy.entity.Admin;
-import lk.ijse.pharmacy.model.LoginModel;
-import lk.ijse.pharmacy.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static lk.ijse.pharmacy.model.LoginModel.resultSet;
-
 public class AdminDAOImpl implements AdminDAO {
 
     private final Connection connection;
+    public static ResultSet resultSet;
 
     public AdminDAOImpl(Connection connection) {
         this.connection = connection;
@@ -100,5 +97,17 @@ public class AdminDAOImpl implements AdminDAO {
             idList.add(rst.getString(1));
         }
         return idList;
+    }
+
+    @Override
+    public boolean searchEmail(Admin admin) throws SQLException, ClassNotFoundException {
+        resultSet = DBUtil.executeQuery("SELECT * FROM admin WHERE email = ?", admin.getEmail());
+        while (resultSet.next()) {
+            if (resultSet.getString(3).equals(admin.getEmail()) &&
+                    resultSet.getString(6).equals(admin.getPassword())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

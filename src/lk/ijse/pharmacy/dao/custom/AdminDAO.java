@@ -24,4 +24,6 @@ public interface AdminDAO extends CrudDAO<Admin,String> {
 
     ArrayList<String> loadIDs() throws SQLException, ClassNotFoundException;
 
+    boolean searchEmail(Admin admin) throws SQLException, ClassNotFoundException;
+
 }

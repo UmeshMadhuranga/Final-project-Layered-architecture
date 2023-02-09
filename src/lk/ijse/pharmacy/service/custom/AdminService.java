@@ -21,4 +21,6 @@ public interface AdminService extends SuperService {
     ArrayList<Admin> getAllAdmins() throws SQLException, ClassNotFoundException;
 
     ArrayList<String> loadAdminIDs() throws SQLException, ClassNotFoundException;
+
+    boolean searchAdminEmail(Admin admin) throws SQLException, ClassNotFoundException;
 }

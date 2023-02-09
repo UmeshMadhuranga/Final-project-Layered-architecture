@@ -54,4 +54,9 @@ public class AdminServiceImpl implements AdminService {
     public ArrayList<String> loadAdminIDs() throws SQLException, ClassNotFoundException {
         return adminDAO.loadIDs();
     }
+
+    @Override
+    public boolean searchAdminEmail(Admin admin) throws SQLException, ClassNotFoundException {
+        return adminDAO.searchEmail(convertor.fromEAdmin(admin));
+    }
 }

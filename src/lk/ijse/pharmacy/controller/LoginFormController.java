@@ -13,6 +13,9 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import lk.ijse.pharmacy.model.AdminModel;
 import lk.ijse.pharmacy.model.LoginModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.AdminService;
 import lk.ijse.pharmacy.to.Admin;
 import lk.ijse.pharmacy.util.Navigation;
 import lk.ijse.pharmacy.util.Routes;
@@ -30,6 +33,12 @@ public class LoginFormController {
 
     public static Stage stage;
 
+    private AdminService adminService;
+
+    public void initializer(){
+        this.adminService = ServiceFactory.getInstance().getService(ServiceTypes.ADMIN);
+    }
+
     public void emailOnAction(ActionEvent actionEvent) {
         txtPassword.requestFocus();
     }
@@ -44,8 +53,8 @@ public class LoginFormController {
         }
         Admin admin = new Admin(email,password);
         try {
-            boolean b = LoginModel.searchEmail(admin);
-            if (b) {
+            boolean isExists = adminService.searchAdminEmail(admin);
+            if (isExists) {
                 if (LoginModel.resultSet.getString(5).equals("Admin")) {
                     Navigation.navigate(Routes.ADMINLOGIN,pane);
                 } else {
@@ -54,11 +63,26 @@ public class LoginFormController {
             } else {
                 new Alert(Alert.AlertType.WARNING,"Please enter correct password and email.!").show();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            boolean b = LoginModel.searchEmail(admin);
+//            if (b) {
+//                if (LoginModel.resultSet.getString(5).equals("Admin")) {
+//                    Navigation.navigate(Routes.ADMINLOGIN,pane);
+//                } else {
+//                    Navigation.navigate(Routes.EMPLOYEELOGIN,pane);
+//                }
+//            } else {
+//                new Alert(Alert.AlertType.WARNING,"Please enter correct password and email.!").show();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void btnSignInOnAction(ActionEvent actionEvent) throws IOException {
