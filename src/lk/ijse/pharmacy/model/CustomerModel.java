@@ -1,8 +1,6 @@
 package lk.ijse.pharmacy.model;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import lk.ijse.pharmacy.to.Customer;
-import lk.ijse.pharmacy.to.Employee;
 import lk.ijse.pharmacy.util.CrudUtil;
 
 import java.sql.ResultSet;

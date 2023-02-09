@@ -9,6 +9,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.paint.Paint;
 import lk.ijse.pharmacy.model.AdminModel;
 import lk.ijse.pharmacy.model.CustomerModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.CustomerService;
 import lk.ijse.pharmacy.to.Admin;
 import lk.ijse.pharmacy.to.Customer;
 
@@ -27,6 +30,8 @@ public class UpdateCustomerFormController {
     private Pattern addressPattern;
     private Pattern phonePattern;
 
+    private CustomerService customerService;
+
     public void initialize(){
         customerIdPattern = Pattern.compile("^([C0]{2})([0-9]{2})$");
         namePattern = Pattern.compile("^([\\w\\s\\D][^0-9]{1,})$");
@@ -34,33 +39,50 @@ public class UpdateCustomerFormController {
         phonePattern = Pattern.compile("^([0-9]{10})$");
 
         LoadCustomerID();
+        this.customerService = ServiceFactory.getInstance().getService(ServiceTypes.CUSTOMER);
     }
 
     private void LoadCustomerID() {
+        ObservableList<String> observableList = FXCollections.observableArrayList();
         try {
-            ObservableList<String> observableList = FXCollections.observableArrayList();
-            ArrayList<String> idList = CustomerModel.loadCustomerIds();
-
-            for (String id : idList) {
+            ArrayList<String> list = customerService.loadCustomerIDs();
+            for (String id : list) {
                 observableList.add(id);
             }
             txtCId.setItems(observableList);
         } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+
+//        try {
+//            ObservableList<String> observableList = FXCollections.observableArrayList();
+//            ArrayList<String> idList = CustomerModel.loadCustomerIds();
+//
+//            for (String id : idList) {
+//                observableList.add(id);
+//            }
+//            txtCId.setItems(observableList);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public void txtCIdOnAction(ActionEvent actionEvent) {
         String id =String.valueOf(txtCId.getValue());
-
         try {
-            Customer customer = CustomerModel.searchCustomer(id);
+            Customer customer = customerService.searchCustomer(id);
             fillTheFields(customer);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+//        try {
+//            Customer customer = CustomerModel.searchCustomer(id);
+//            fillTheFields(customer);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void fillTheFields(Customer customer) {
@@ -115,17 +137,28 @@ public class UpdateCustomerFormController {
 
         Customer customer = new Customer(cId,name,address,phone);
         try {
-            boolean isAdded = CustomerModel.updateCustomer(customer);
-            if (isAdded) {
+            boolean isUpdated = customerService.updateCustomer(customer);
+            if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Update Successful").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Something wrong").show();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            boolean isAdded = CustomerModel.updateCustomer(customer);
+//            if (isAdded) {
+//                new Alert(Alert.AlertType.INFORMATION, "Update Successful").show();
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "Something wrong").show();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
         clearText();
     }
 

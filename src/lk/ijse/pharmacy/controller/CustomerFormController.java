@@ -10,6 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.pharmacy.model.CustomerModel;
 import lk.ijse.pharmacy.model.EmployeeModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.CustomerService;
 import lk.ijse.pharmacy.to.Customer;
 import lk.ijse.pharmacy.to.Employee;
 import lk.ijse.pharmacy.util.Navigation;
@@ -32,6 +35,8 @@ public class CustomerFormController {
 
     public ObservableList<Customer> observableList = FXCollections.observableArrayList();
 
+    private CustomerService customerService;
+
     public void initialize(){
         colCId.setCellValueFactory(new PropertyValueFactory<Customer,String>("cId"));
         colName.setCellValueFactory(new PropertyValueFactory<Customer,String>("name"));
@@ -40,12 +45,13 @@ public class CustomerFormController {
 
         LoadOptions();
         LoadCustomer();
+        this.customerService = ServiceFactory.getInstance().getService(ServiceTypes.CUSTOMER);
     }
 
     private void LoadCustomer() {
         try {
-            ArrayList<Customer> list = CustomerModel.getAllCustomer();
-
+            //ArrayList<Customer> list = CustomerModel.getAllCustomer();
+            ArrayList<Customer> list = customerService.getAllCustomer();
             for(Customer customer : list){
                 observableList.add(customer);
             }

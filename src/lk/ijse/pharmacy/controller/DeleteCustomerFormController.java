@@ -7,6 +7,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import lk.ijse.pharmacy.model.CustomerModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.CustomerService;
 import lk.ijse.pharmacy.to.Customer;
 
 import java.sql.SQLException;
@@ -19,22 +22,35 @@ public class DeleteCustomerFormController {
     public JFXTextField txtPhone;
     public JFXComboBox cmbCId;
 
+    private CustomerService customerService;
+
     public void initialize(){
         LoadCustomerID();
+        this.customerService = ServiceFactory.getInstance().getService(ServiceTypes.CUSTOMER);
     }
 
     private void LoadCustomerID() {
+        ObservableList<String> observableList = FXCollections.observableArrayList();
         try {
-            ObservableList<String> observableList = FXCollections.observableArrayList();
-            ArrayList<String> idList = CustomerModel.loadCustomerIds();
-
-            for (String id : idList) {
+            ArrayList<String> list = customerService.loadCustomerIDs();
+            for (String id : list) {
                 observableList.add(id);
             }
             cmbCId.setItems(observableList);
         } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+//        try {
+//            ObservableList<String> observableList = FXCollections.observableArrayList();
+//            ArrayList<String> idList = CustomerModel.loadCustomerIds();
+//
+//            for (String id : idList) {
+//                observableList.add(id);
+//            }
+//            cmbCId.setItems(observableList);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public void txtNameOnAction(ActionEvent actionEvent) {
@@ -51,7 +67,7 @@ public class DeleteCustomerFormController {
 
     public void btnDeleteCustomerOnAction(ActionEvent actionEvent) {
         try {
-            boolean isDelete = CustomerModel.deleteCustomer(String.valueOf(cmbCId.getValue()));
+            boolean isDelete = customerService.deleteCustomer(String.valueOf(cmbCId.getValue()));
             if (isDelete) {
                 new Alert(Alert.AlertType.INFORMATION, "Delete successful.").show();
             } else {
@@ -60,6 +76,17 @@ public class DeleteCustomerFormController {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            boolean isDelete = CustomerModel.deleteCustomer(String.valueOf(cmbCId.getValue()));
+//            if (isDelete) {
+//                new Alert(Alert.AlertType.INFORMATION, "Delete successful.").show();
+//            } else {
+//                new Alert(Alert.AlertType.WARNING, "Something Wrong").show();
+//            }
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
         clearText();
     }
 
@@ -77,13 +104,19 @@ public class DeleteCustomerFormController {
         String id =String.valueOf(cmbCId.getValue());
 
         try {
-            Customer customer = CustomerModel.searchCustomer(id);
+            Customer customer = customerService.searchCustomer(id);
             fillTheFields(customer);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+//        try {
+//            Customer customer = CustomerModel.searchCustomer(id);
+//            fillTheFields(customer);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void fillTheFields(Customer customer) {
