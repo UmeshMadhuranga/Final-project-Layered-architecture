@@ -6,9 +6,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.paint.Paint;
 import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.model.MedicationModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.MedicationService;
 import lk.ijse.pharmacy.to.Employee;
 import lk.ijse.pharmacy.to.Medication;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
@@ -26,22 +30,27 @@ public class UpdateMedicationFormController {
     private Pattern qtyPattern;
     private Pattern pricePattern;
 
+    private MedicationService medicationService;
+
     public void initialize(){
         codePattern = Pattern.compile("^([M0]{3})([0-9]{2})$");
         descriptionPattern = Pattern.compile("^([\\w\\s\\D][^0-9]{1,})$");
         expirationDatePattern = Pattern.compile("^([0-3]{4}[-][0-1]{1}[0-9]{1}[-][0-3]{1}[0-9]{1})$");
         qtyPattern = Pattern.compile("^([0-9]{1,4})$");
         pricePattern = Pattern.compile("^([0-9]{1,}[.][0-9]{2})$");
+
+        this.medicationService = ServiceFactory.getInstance().getService(ServiceTypes.MEDICATION);
     }
 
     public void txtMCodeOnAction(ActionEvent actionEvent) {
         if (txtMCode.getText().equals("")) {
             new Alert(Alert.AlertType.WARNING,"Please enter ID.").show();
         }
+
         String mCode = txtMCode.getText();
 
         try {
-            Medication medication = MedicationModel.searchMedication(mCode);
+            Medication medication = medicationService.searchMedication(mCode);
             if (medication == null) {
                 new Alert(Alert.AlertType.WARNING, "Medication Not Found!").show();
             } else {
@@ -50,11 +59,25 @@ public class UpdateMedicationFormController {
                 txtQty.setText(medication.getQty()+"");
                 txtPrice.setText(medication.getPrice()+"");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            Medication medication = MedicationModel.searchMedication(mCode);
+//            if (medication == null) {
+//                new Alert(Alert.AlertType.WARNING, "Medication Not Found!").show();
+//            } else {
+//                txtDescription.setText(medication.getDescription());
+//                txtExpirationDate.setText(medication.getExpirationDate()+"");
+//                txtQty.setText(medication.getQty()+"");
+//                txtPrice.setText(medication.getPrice()+"");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void txtDescriptionOnAction(ActionEvent actionEvent) {
@@ -117,17 +140,28 @@ public class UpdateMedicationFormController {
         Medication medication = new Medication(mCode,description,ex_Date,qty,price);
 
         try {
-            boolean isAdded = MedicationModel.updateMedication(medication);
-            if (isAdded) {
+            boolean isUpdated = medicationService.updateMedication(medication);
+            if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Update Successful").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Something wrong").show();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            boolean isAdded = MedicationModel.updateMedication(medication);
+//            if (isAdded) {
+//                new Alert(Alert.AlertType.INFORMATION, "Update Successful").show();
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "Something wrong").show();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
         clearText();
     }
 

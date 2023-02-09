@@ -10,6 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.pharmacy.model.MedicationModel;
 import lk.ijse.pharmacy.model.SupplierModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.SupplierService;
 import lk.ijse.pharmacy.to.Employee;
 import lk.ijse.pharmacy.to.Medication;
 import lk.ijse.pharmacy.to.Supplier;
@@ -34,6 +37,8 @@ public class SupplierFormController {
 
     public ObservableList<Supplier> observableList = FXCollections.observableArrayList();
 
+    private SupplierService supplierService;
+
     public void initialize(){
         colSId.setCellValueFactory(new PropertyValueFactory<Supplier,String>("sId"));
         colName.setCellValueFactory(new PropertyValueFactory<Supplier,String>("name"));
@@ -43,12 +48,12 @@ public class SupplierFormController {
 
         LoadOptions();
         LoadSupplier();
+        this.supplierService = ServiceFactory.getInstance().getService(ServiceTypes.SUPPLIER);
     }
 
     private void LoadSupplier() {
         try {
-            ArrayList<Supplier> list = SupplierModel.getAllSupplier();
-
+            ArrayList<Supplier> list = supplierService.getAllSupplier();
             for(Supplier supplier : list){
                 observableList.add(supplier);
             }
@@ -56,6 +61,17 @@ public class SupplierFormController {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            ArrayList<Supplier> list = SupplierModel.getAllSupplier();
+//
+//            for(Supplier supplier : list){
+//                observableList.add(supplier);
+//            }
+//            tblSupplier.setItems(observableList);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void LoadOptions() {

@@ -8,8 +8,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.model.MedicationModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.MedicationService;
 import lk.ijse.pharmacy.to.Employee;
 import lk.ijse.pharmacy.to.Medication;
 import lk.ijse.pharmacy.util.Navigation;
@@ -33,6 +35,8 @@ public class MedicationFormController {
 
     public ObservableList<Medication> observableList = FXCollections.observableArrayList();
 
+    private MedicationService medicationService;
+
     public void initialize(){
         colCode.setCellValueFactory(new PropertyValueFactory<Employee,String>("mCode"));
         colDescription.setCellValueFactory(new PropertyValueFactory<Employee,String>("description"));
@@ -42,12 +46,12 @@ public class MedicationFormController {
 
         LoadOptions();
         LoadMedication();
+        this.medicationService = ServiceFactory.getInstance().getService(ServiceTypes.MEDICATION);
     }
 
     private void LoadMedication() {
         try {
-            ArrayList<Medication> list = MedicationModel.getAllMedication();
-
+            ArrayList<Medication> list = medicationService.getAllMedication();
             for(Medication medication : list){
                 observableList.add(medication);
             }
@@ -55,6 +59,17 @@ public class MedicationFormController {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            ArrayList<Medication> list = MedicationModel.getAllMedication();
+//
+//            for(Medication medication : list){
+//                observableList.add(medication);
+//            }
+//            tblMedication.setItems(observableList);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void LoadOptions() {

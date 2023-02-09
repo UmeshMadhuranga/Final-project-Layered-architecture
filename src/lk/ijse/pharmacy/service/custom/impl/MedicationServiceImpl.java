@@ -13,6 +13,7 @@ import lk.ijse.pharmacy.to.Medication;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class MedicationServiceImpl implements MedicationService {
     private Connection connection;
@@ -28,5 +29,30 @@ public class MedicationServiceImpl implements MedicationService {
     @Override
     public boolean addMedication(Medication medication) throws DuplicateException, InUseException, SQLException, ClassNotFoundException {
         return medicationDAO.add(convertor.fromEMedication(medication));
+    }
+
+    @Override
+    public boolean deleteMedication(String code) throws SQLException, ClassNotFoundException {
+        return medicationDAO.delete(code);
+    }
+
+    @Override
+    public Medication searchMedication(String code) throws SQLException, ClassNotFoundException {
+        return medicationDAO.search(code);
+    }
+
+    @Override
+    public boolean updateMedication(Medication medication) throws SQLException, ClassNotFoundException {
+        return medicationDAO.update(convertor.fromEMedication(medication));
+    }
+
+    @Override
+    public ArrayList<Medication> getAllMedication() throws SQLException, ClassNotFoundException {
+        return medicationDAO.getAll();
+    }
+
+    @Override
+    public ArrayList<String> loadMedicationCodes() throws SQLException, ClassNotFoundException {
+        return null;
     }
 }

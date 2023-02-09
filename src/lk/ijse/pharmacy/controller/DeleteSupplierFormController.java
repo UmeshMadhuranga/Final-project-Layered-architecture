@@ -3,8 +3,11 @@ package lk.ijse.pharmacy.controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
-import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.model.SupplierModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.SupplierService;
+import lk.ijse.pharmacy.to.Employee;
 import lk.ijse.pharmacy.to.Supplier;
 
 import java.sql.SQLException;
@@ -16,12 +19,19 @@ public class DeleteSupplierFormController {
     public JFXTextField txtAddress;
     public JFXTextField txtPhone;
 
+    private SupplierService supplierService;
+
+    public void initialize(){
+        this.supplierService = ServiceFactory.getInstance().getService(ServiceTypes.SUPPLIER);
+    }
+
     public void txtSIdOnAction(ActionEvent actionEvent) {
         if (txtSId.getText().equals("")) {
             new Alert(Alert.AlertType.WARNING,"Please enter ID.").show();
         }
+
         try {
-            Supplier supplier = SupplierModel.searchSupplier(txtSId.getText());
+            Supplier supplier = supplierService.searchSupplier(txtSId.getText());
             if (supplier == null) {
                 new Alert(Alert.AlertType.WARNING, "Supplier Not Found!").show();
             } else {
@@ -30,11 +40,25 @@ public class DeleteSupplierFormController {
                 txtAddress.setText(supplier.getAddress());
                 txtPhone.setText(supplier.getPhone()+"");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            Supplier supplier = SupplierModel.searchSupplier(txtSId.getText());
+//            if (supplier == null) {
+//                new Alert(Alert.AlertType.WARNING, "Supplier Not Found!").show();
+//            } else {
+//                txtName.setText(supplier.getName());
+//                txtEmail.setText(supplier.getEmail());
+//                txtAddress.setText(supplier.getAddress());
+//                txtPhone.setText(supplier.getPhone()+"");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void txtNameOnAction(ActionEvent actionEvent) {
@@ -57,17 +81,28 @@ public class DeleteSupplierFormController {
         String sId = txtSId.getText();
 
         try {
-            boolean isDelete = SupplierModel.deleteSupplier(sId);
-            if (isDelete) {
+            boolean isDeleted = supplierService.deleteSupplier(sId);
+            if (isDeleted) {
                 new Alert(Alert.AlertType.INFORMATION, "Delete successful.").show();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Something Wrong").show();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            boolean isDelete = SupplierModel.deleteSupplier(sId);
+//            if (isDelete) {
+//                new Alert(Alert.AlertType.INFORMATION, "Delete successful.").show();
+//            } else {
+//                new Alert(Alert.AlertType.WARNING, "Something Wrong").show();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
         clearText();
     }
 
