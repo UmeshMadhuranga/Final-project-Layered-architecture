@@ -7,6 +7,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import lk.ijse.pharmacy.model.MedicationModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.MedicationService;
+import lk.ijse.pharmacy.to.Medication;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -25,12 +29,16 @@ public class AddMedicationFormController {
     private Pattern qtyPattern;
     private Pattern pricePattern;
 
+    private MedicationService medicationService;
+
     public void initialize(){
         codePattern = Pattern.compile("^([M0]{3})([0-9]{2})$");
         descriptionPattern = Pattern.compile("^([A-Za-z0-9\\s\\W]{1,})$");
         expirationDatePattern = Pattern.compile("^([0-3]{4}[-][0-1]{1}[0-9]{1}[-][0-3]{1}[0-9]{1})$");
         qtyPattern = Pattern.compile("^([0-9]{1,4})$");
         pricePattern = Pattern.compile("^([0-9]{1,}[.][0-9]{2})$");
+
+        medicationService = ServiceFactory.getInstance().getService(ServiceTypes.MEDICATION);
     }
 
     public void txtCodeOnAction(ActionEvent actionEvent) {
@@ -95,19 +103,31 @@ public class AddMedicationFormController {
         int qty = Integer.parseInt(txtQty.getText());
         Double price = Double.parseDouble(txtPrice.getText());
 
+        Medication medication = new Medication(code,description,ex_Date,qty,price);
         try {
-            boolean isAdded = MedicationModel.addNewMedication(code,description,ex_Date,qty,price);
-            if (isAdded) {
+            if (medicationService.addMedication(medication)) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Medication Added!").show();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
             }
             clearText();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.WARNING, "Duplicate primary key!").show();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
+
+//        try {
+//            boolean isAdded = MedicationModel.addNewMedication(code,description,ex_Date,qty,price);
+//            if (isAdded) {
+//                new Alert(Alert.AlertType.CONFIRMATION, "Medication Added!").show();
+//            } else {
+//                new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
+//            }
+//            clearText();
+//        } catch (SQLException e) {
+//            new Alert(Alert.AlertType.WARNING, "Duplicate primary key!").show();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void btnCancel(ActionEvent actionEvent) {

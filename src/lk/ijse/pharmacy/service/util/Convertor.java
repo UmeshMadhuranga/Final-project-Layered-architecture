@@ -35,7 +35,7 @@ public class Convertor {
         return new lk.ijse.pharmacy.entity.Medication(medication.getMCode(), medication.getDescription(), medication.getExpirationDate(), medication.getQty(), medication.getPrice());
     }
 
-    public Supplier fromTSupplier(lk.ijse.pharmacy.entity.Supplier supplier){
+    public Supplier fromESupplier(lk.ijse.pharmacy.entity.Supplier supplier){
         return new Supplier(supplier.getSId(), supplier.getName(), supplier.getEmail(), supplier.getAddress(), supplier.getPhone());
     }
 

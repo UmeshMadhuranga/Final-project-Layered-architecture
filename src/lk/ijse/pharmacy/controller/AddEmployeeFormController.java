@@ -6,6 +6,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import lk.ijse.pharmacy.model.EmployeeModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.EmployeeService;
+import lk.ijse.pharmacy.to.Employee;
 
 import java.sql.SQLException;
 import java.util.regex.Pattern;
@@ -23,12 +27,16 @@ public class AddEmployeeFormController {
     private Pattern addressPattern;
     private Pattern phonePattern;
 
+    private EmployeeService employeeService;
+
     public void initialize(){
         emIdPattern = Pattern.compile("^([E0]{2})([0-9]{2})$");
         namePattern = Pattern.compile("^([\\w\\s\\D][^0-9]{1,})$");
         emailPattern = Pattern.compile("^([a-z|0-9]{3,})[@]([a-z]{2,})\\.(com|lk)$");
         addressPattern = Pattern.compile("^([A-Za-z0-9\\W\\s]{2,})$");
         phonePattern = Pattern.compile("^([0-9]{10})$");
+
+        employeeService = ServiceFactory.getInstance().getService(ServiceTypes.EMPLOYEE);
     }
 
     public void txtEmployeeIdOnAction(ActionEvent actionEvent) {
@@ -104,19 +112,30 @@ public class AddEmployeeFormController {
         String address = txtAddress.getText();
         String phone = txtPhone.getText();
 
+        Employee employee = new Employee(emId,name,email,address,phone);
         try {
-            boolean isAdded = EmployeeModel.addNewEmployee(emId,name,email,address,phone);
-            if (isAdded) {
+            if (employeeService.addEmployee(employee)) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee Added!").show();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
             }
             clearText();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.WARNING, "Duplicate primary key!").show();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
+//        try {
+//            boolean isAdded = EmployeeModel.addNewEmployee(emId,name,email,address,phone);
+//            if (isAdded) {
+//                new Alert(Alert.AlertType.CONFIRMATION, "Employee Added!").show();
+//            } else {
+//                new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
+//            }
+//            clearText();
+//        } catch (SQLException e) {
+//            new Alert(Alert.AlertType.WARNING, "Duplicate primary key!").show();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void btnCancelOnAction(ActionEvent actionEvent) {

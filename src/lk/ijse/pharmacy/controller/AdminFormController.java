@@ -10,6 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.pharmacy.model.AdminModel;
 import lk.ijse.pharmacy.model.MedicationModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.AdminService;
 import lk.ijse.pharmacy.to.Admin;
 import lk.ijse.pharmacy.to.Employee;
 import lk.ijse.pharmacy.to.Medication;
@@ -33,6 +36,7 @@ public class AdminFormController {
     public ComboBox cmbOption;
 
     public ObservableList<Admin> observableList = FXCollections.observableArrayList();
+    private AdminService adminService;
 
     public void initialize(){
         colUserId.setCellValueFactory(new PropertyValueFactory<Admin,String>("uId"));
@@ -43,19 +47,29 @@ public class AdminFormController {
 
         LoadOptions();
         LoadAdmin();
+        this.adminService = ServiceFactory.getInstance().getService(ServiceTypes.ADMIN);
     }
 
     private void LoadAdmin() {
         try {
-            ArrayList<Admin> list = AdminModel.getAllAdmin();
-
-            for(Admin admin : list){
+            ArrayList<Admin> allAdmins = adminService.getAllAdmins();
+            for(Admin admin : allAdmins){
                 observableList.add(admin);
             }
             tblAdmin.setItems(observableList);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+//        try {
+//            ArrayList<Admin> list = AdminModel.getAllAdmin();
+//
+//            for(Admin admin : list){
+//                observableList.add(admin);
+//            }
+//            tblAdmin.setItems(observableList);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void LoadOptions() {

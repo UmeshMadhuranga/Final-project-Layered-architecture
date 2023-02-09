@@ -6,6 +6,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import lk.ijse.pharmacy.model.SupplierModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.SupplierService;
+import lk.ijse.pharmacy.to.Supplier;
 
 import java.sql.SQLException;
 import java.util.regex.Pattern;
@@ -23,12 +27,16 @@ public class AddSupplierFormController {
     private Pattern addressPattern;
     private Pattern phonePattern;
 
+    private SupplierService supplierService;
+
     public void initialize(){
         sIdPattern = Pattern.compile("^([S0]{2})([0-9]{2})$");
         namePattern = Pattern.compile("^([\\w\\s\\D][^0-9]{1,})$");
         emailPattern = Pattern.compile("^([a-z|0-9]{3,})[@]([a-z]{2,})\\.(com|lk)$");
         addressPattern = Pattern.compile("^([A-Za-z0-9\\W\\s]{2,})$");
         phonePattern = Pattern.compile("^([0-9]{10})$");
+
+        supplierService = ServiceFactory.getInstance().getService(ServiceTypes.SUPPLIER);
     }
 
     public void txtSIdOnAction(ActionEvent actionEvent) {
@@ -116,19 +124,31 @@ public class AddSupplierFormController {
             String address = txtAddress.getText();
             String phone = txtPhone.getText();
 
+            Supplier supplier = new Supplier(sId,name,email,address,phone);
             try {
-                boolean isAdded = SupplierModel.addNewSupplier(sId,name,email,address,phone);
-                if (isAdded) {
+                if (supplierService.addSupplier(supplier)) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Supplier Added!").show();
                 } else {
                     new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
                 }
                 clearText();
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 new Alert(Alert.AlertType.WARNING, "Duplicate primary key!").show();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
+
+//            try {
+//                boolean isAdded = SupplierModel.addNewSupplier(sId,name,email,address,phone);
+//                if (isAdded) {
+//                    new Alert(Alert.AlertType.CONFIRMATION, "Supplier Added!").show();
+//                } else {
+//                    new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
+//                }
+//                clearText();
+//            } catch (SQLException e) {
+//                new Alert(Alert.AlertType.WARNING, "Duplicate primary key!").show();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
         }
 
     }

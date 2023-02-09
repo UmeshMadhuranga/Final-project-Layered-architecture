@@ -8,6 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import lk.ijse.pharmacy.model.AdminModel;
 import lk.ijse.pharmacy.model.EmployeeModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.AdminService;
 import lk.ijse.pharmacy.to.Admin;
 
 import java.sql.SQLException;
@@ -20,22 +23,35 @@ public class DeleteAdminFormController {
     public JFXTextField txtAddress;
     public JFXComboBox cmbUserID;
 
+    private AdminService adminService;
+
     public void initialize(){
         LoadUserID();
+        this.adminService = ServiceFactory.getInstance().getService(ServiceTypes.ADMIN);
     }
 
     private void LoadUserID() {
         try {
             ObservableList<String> observableList = FXCollections.observableArrayList();
-            ArrayList<String> idList = AdminModel.loadIDs();
-
-            for (String id : idList) {
+            ArrayList<String> list = adminService.loadAdminIDs();
+            for (String id : list) {
                 observableList.add(id);
             }
             cmbUserID.setItems(observableList);
         } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+//        try {
+//            ObservableList<String> observableList = FXCollections.observableArrayList();
+//            ArrayList<String> idList = AdminModel.loadIDs();
+//
+//            for (String id : idList) {
+//                observableList.add(id);
+//            }
+//            cmbUserID.setItems(observableList);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public void txtUserNameOnAction(ActionEvent actionEvent) {
@@ -51,17 +67,28 @@ public class DeleteAdminFormController {
         String uId = String.valueOf(cmbUserID.getValue());
 
         try {
-            boolean isDelete = AdminModel.deleteAdmin(uId);
+            boolean isDelete = adminService.deleteAdmin(uId);
             if (isDelete) {
                 new Alert(Alert.AlertType.INFORMATION, "Delete successful.").show();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Something Wrong").show();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            boolean isDelete = AdminModel.deleteAdmin(uId);
+//            if (isDelete) {
+//                new Alert(Alert.AlertType.INFORMATION, "Delete successful.").show();
+//            } else {
+//                new Alert(Alert.AlertType.WARNING, "Something Wrong").show();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
         clearText();
 
     }
@@ -80,13 +107,19 @@ public class DeleteAdminFormController {
         String id =String.valueOf(cmbUserID.getValue());
 
         try {
-            Admin admin = AdminModel.searchAdmin(id);
+            Admin admin = adminService.searchAdmin(id);
             fillTheFields(admin);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+//        try {
+//            Admin admin = AdminModel.searchAdmin(id);
+//            fillTheFields(admin);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void fillTheFields(Admin admin) {

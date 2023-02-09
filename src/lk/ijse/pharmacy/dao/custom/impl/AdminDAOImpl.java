@@ -3,11 +3,17 @@ package lk.ijse.pharmacy.dao.custom.impl;
 import javafx.scene.control.Alert;
 import lk.ijse.pharmacy.dao.Util.DBUtil;
 import lk.ijse.pharmacy.dao.custom.AdminDAO;
+import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
 import lk.ijse.pharmacy.entity.Admin;
+import lk.ijse.pharmacy.model.LoginModel;
+import lk.ijse.pharmacy.util.CrudUtil;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static lk.ijse.pharmacy.model.LoginModel.resultSet;
 
 public class AdminDAOImpl implements AdminDAO {
 
@@ -18,7 +24,7 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public boolean add(Admin admin) {
+    public boolean add(Admin admin) throws ConstraintViolationException {
         try {
             return DBUtil.executeUpdate("INSERT INTO admin VALUES (?,?,?,?,?,?);",
                     admin.getUId(),
@@ -35,27 +41,64 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public ArrayList<lk.ijse.pharmacy.to.Admin> getAll() {
+    public ArrayList<lk.ijse.pharmacy.to.Admin> getAll() throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM admin");
+
+        ArrayList<lk.ijse.pharmacy.to.Admin> list=new ArrayList<>();
+
+        while (resultSet.next()){
+            list.add(new lk.ijse.pharmacy.to.Admin(resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6))
+            );
+        }
+        return list;
+    }
+
+    @Override
+    public lk.ijse.pharmacy.to.Admin search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM admin WHERE uId = ? ", id);
+
+        while (resultSet.next()){
+            return new lk.ijse.pharmacy.to.Admin(resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5),
+                    resultSet.getString(6)
+            );
+        }
         return null;
     }
 
     @Override
-    public lk.ijse.pharmacy.to.Admin search(String uId) {
-        return null;
+    public boolean update(Admin admin) throws SQLException, ClassNotFoundException {
+        return DBUtil.executeUpdate("UPDATE admin SET name=?, email=?, address=?, role=?, password=? WHERE uId = ?;",
+                admin.getName(),
+                admin.getEmail(),
+                admin.getAddress(),
+                admin.getRole(),
+                admin.getPassword(),
+                admin.getUId()
+        );
     }
 
     @Override
-    public boolean update(lk.ijse.pharmacy.to.Admin admin) {
-        return false;
+    public boolean delete(String uId) throws SQLException, ClassNotFoundException {
+        return DBUtil.executeUpdate("DELETE FROM admin WHERE uId = ?",uId);
     }
 
     @Override
-    public boolean delete(String uId) {
-        return false;
-    }
+    public ArrayList<String> loadIDs() throws SQLException, ClassNotFoundException {
+        ResultSet rst = DBUtil.executeQuery("SELECT uId FROM admin");
+        ArrayList<String> idList = new ArrayList<>();
 
-    @Override
-    public ArrayList<String> loadIDs() {
-        return null;
+        while (rst.next()) {
+            idList.add(rst.getString(1));
+        }
+        return idList;
     }
 }

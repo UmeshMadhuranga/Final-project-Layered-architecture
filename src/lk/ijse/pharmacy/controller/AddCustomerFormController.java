@@ -9,6 +9,7 @@ import lk.ijse.pharmacy.model.CustomerModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
 import lk.ijse.pharmacy.service.custom.CustomerService;
+import lk.ijse.pharmacy.to.Customer;
 
 import java.sql.SQLException;
 import java.util.regex.Pattern;
@@ -95,19 +96,30 @@ public class AddCustomerFormController {
         String address = txtAddress.getText();
         String phone = txtPhone.getText();
 
+        Customer customer = new Customer(cId,name,address,phone);
         try {
-            boolean isAdded = CustomerModel.addNewCustomer(cId,name,address,phone);
-            if (isAdded) {
+            if (customerService.addCustomer(customer)) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer Added!").show();
             } else {
                 new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
             }
-            clearText();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.WARNING, "Duplicate primary key!").show();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
+//        try {
+//            boolean isAdded = CustomerModel.addNewCustomer(cId,name,address,phone);
+//            if (isAdded) {
+//                new Alert(Alert.AlertType.CONFIRMATION, "Customer Added!").show();
+//            } else {
+//                new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
+//            }
+//            clearText();
+//        } catch (SQLException e) {
+//            new Alert(Alert.AlertType.WARNING, "Duplicate primary key!").show();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+        clearText();
     }
 
     public void btnCancelOnAction(ActionEvent actionEvent) {

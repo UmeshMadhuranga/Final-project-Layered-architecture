@@ -10,6 +10,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Paint;
 import lk.ijse.pharmacy.model.AdminModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.AdminService;
 import lk.ijse.pharmacy.to.Admin;
 
 import java.sql.SQLException;
@@ -31,6 +34,8 @@ public class UpdateAdminFormController {
     private Pattern addressPattern;
     private Pattern passwordPattern;
 
+    private AdminService adminService;
+
     public void initialize(){
         userNamePattern = Pattern.compile("^([\\w\\s\\D][^0-9]{1,})$");
         emailPattern = Pattern.compile("^([a-z|0-9]{3,})[@]([a-z]{2,})\\.(com|lk)$");
@@ -38,20 +43,32 @@ public class UpdateAdminFormController {
         passwordPattern = Pattern.compile("^([0-9]{4})$");
 
         LoadUserID();
+        this.adminService = ServiceFactory.getInstance().getService(ServiceTypes.ADMIN);
     }
 
     private void LoadUserID() {
         try {
             ObservableList<String> observableList = FXCollections.observableArrayList();
-            ArrayList<String> idList = AdminModel.loadIDs();
-
-            for (String id : idList) {
+            ArrayList<String> list = adminService.loadAdminIDs();
+            for (String id : list) {
                 observableList.add(id);
             }
             cmbUserID.setItems(observableList);
         } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+
+//        try {
+//            ObservableList<String> observableList = FXCollections.observableArrayList();
+//            ArrayList<String> idList = AdminModel.loadIDs();
+//
+//            for (String id : idList) {
+//                observableList.add(id);
+//            }
+//            cmbUserID.setItems(observableList);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public void txtUserNameOnAction(ActionEvent actionEvent) {
@@ -115,19 +132,29 @@ public class UpdateAdminFormController {
         String password = txtPassword.getText();
 
         Admin admin = new Admin(uId,userName,email,address,role,password);
-
         try {
-            boolean isUpdate = AdminModel.updateAdmin(admin);
+            boolean isUpdate = adminService.updateAdmin(admin);
             if (isUpdate) {
                 new Alert(Alert.AlertType.INFORMATION, "Update Successful").show();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Something wrong").show();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            boolean isUpdate = AdminModel.updateAdmin(admin);
+//            if (isUpdate) {
+//                new Alert(Alert.AlertType.INFORMATION, "Update Successful").show();
+//            } else {
+//                new Alert(Alert.AlertType.ERROR, "Something wrong").show();
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
         clearText();
     }
 
@@ -146,13 +173,19 @@ public class UpdateAdminFormController {
         String id =String.valueOf(cmbUserID.getValue());
 
         try {
-            Admin admin = AdminModel.searchAdmin(id);
+            Admin admin = adminService.searchAdmin(id);
             fillTheFields(admin);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+//        try {
+//            Admin admin = AdminModel.searchAdmin(id);
+//            fillTheFields(admin);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void fillTheFields(Admin admin) {
