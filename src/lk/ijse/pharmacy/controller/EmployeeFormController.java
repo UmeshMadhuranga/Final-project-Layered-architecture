@@ -12,6 +12,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.pharmacy.model.EmployeeModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.EmployeeService;
 import lk.ijse.pharmacy.to.Employee;
 import lk.ijse.pharmacy.util.Navigation;
 import lk.ijse.pharmacy.util.Routes;
@@ -36,6 +39,8 @@ public class EmployeeFormController {
     public ComboBox cmbOption;
     public AnchorPane pane1;
 
+    private EmployeeService employeeService;
+
     public ObservableList<Employee> observableList = FXCollections.observableArrayList();
 
     public void initialize(){
@@ -48,7 +53,7 @@ public class EmployeeFormController {
         colPhone.setCellValueFactory(new PropertyValueFactory<Employee,String>("phone"));
 
         LoadEmployee();
-
+        this.employeeService = ServiceFactory.getInstance().getService(ServiceTypes.EMPLOYEE);
     }
 
     private void LoadOptions() {
@@ -74,14 +79,23 @@ public class EmployeeFormController {
 
     private void LoadEmployee() {
         try {
-            ArrayList<Employee> list = EmployeeModel.getAllEmployees();
-
-            for(Employee employee : list){
+            ArrayList<Employee> allEmployee = employeeService.getAllEmployee();
+            for(Employee employee : allEmployee){
                 observableList.add(employee);
             }
             tblEmployee.setItems(observableList);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+//        try {
+//            ArrayList<Employee> list = EmployeeModel.getAllEmployees();
+//
+//            for(Employee employee : list){
+//                observableList.add(employee);
+//            }
+//            tblEmployee.setItems(observableList);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 }
