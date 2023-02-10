@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dao.custom.SupplierDAO;
+import lk.ijse.pharmacy.dto.SupplierDTO;
 import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.model.SupplierModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
@@ -47,7 +49,7 @@ public class UpdateSupplierFormController {
         String sId = txtSId.getText();
 
         try {
-            Supplier supplier = supplierService.searchSupplier(sId);
+            SupplierDTO supplier = supplierService.searchSupplier(sId);
             //Supplier supplier = SupplierModel.searchSupplier(sId);
             if (supplier == null) {
                 new Alert(Alert.AlertType.WARNING, "Supplier Not Found!").show();
@@ -121,7 +123,7 @@ public class UpdateSupplierFormController {
         String address = txtAddress.getText();
         String phone = txtPhone.getText();
 
-        Supplier supplier = new Supplier(sId,name,email,address,phone);
+        SupplierDTO supplier = new SupplierDTO(sId,name,email,address,phone);
 
         try {
             boolean isUpdated = supplierService.updateSupplier(supplier);

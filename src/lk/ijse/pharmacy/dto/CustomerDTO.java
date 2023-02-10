@@ -1,29 +1,27 @@
-package lk.ijse.pharmacy.entity;
+package lk.ijse.pharmacy.dto;
 
-public class Employee implements SuperEntity{
-    private String emId;
+public class CustomerDTO {
+    private String cId;
     private String name;
-    private String email;
     private String address;
     private String phone;
 
-    public Employee(String emID, String name, String email, String phone) {
+    public CustomerDTO(String cId, String name, String address, int phone) {
     }
 
-    public Employee(String emId, String name, String email, String address, String phone) {
-        this.emId = emId;
+    public CustomerDTO(String cId, String name, String address, String phone) {
+        this.cId = cId;
         this.name = name;
-        this.email = email;
         this.address = address;
         this.phone = phone;
     }
 
-    public String getEmId() {
-        return emId;
+    public String getCId() {
+        return cId;
     }
 
-    public void setEmId(String emId) {
-        this.emId = emId;
+    public void setCId(String cId) {
+        this.cId = cId;
     }
 
     public String getName() {
@@ -32,14 +30,6 @@ public class Employee implements SuperEntity{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getAddress() {
@@ -60,10 +50,9 @@ public class Employee implements SuperEntity{
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "emId='" + emId + '\'' +
+        return "CustomerDTO{" +
+                "cId='" + cId + '\'' +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';

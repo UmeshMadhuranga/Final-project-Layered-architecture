@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.CustomerDTO;
 import lk.ijse.pharmacy.model.AdminModel;
 import lk.ijse.pharmacy.model.CustomerModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
@@ -70,7 +71,7 @@ public class UpdateCustomerFormController {
     public void txtCIdOnAction(ActionEvent actionEvent) {
         String id =String.valueOf(txtCId.getValue());
         try {
-            Customer customer = customerService.searchCustomer(id);
+            CustomerDTO customer = customerService.searchCustomer(id);
             fillTheFields(customer);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -85,7 +86,7 @@ public class UpdateCustomerFormController {
 //        }
     }
 
-    private void fillTheFields(Customer customer) {
+    private void fillTheFields(CustomerDTO customer) {
         txtName.setText(customer.getName());
         txtAddress.setText(customer.getAddress());
         txtPhone.setText(customer.getPhone());
@@ -135,9 +136,9 @@ public class UpdateCustomerFormController {
         String address = txtAddress.getText();
         String phone = txtPhone.getText();
 
-        Customer customer = new Customer(cId,name,address,phone);
+        CustomerDTO customerDTO = new CustomerDTO(cId,name,address,phone);
         try {
-            boolean isUpdated = customerService.updateCustomer(customer);
+            boolean isUpdated = customerService.updateCustomer(customerDTO);
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Update Successful").show();
             } else {

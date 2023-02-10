@@ -3,8 +3,8 @@ package lk.ijse.pharmacy.dao.custom.impl;
 import lk.ijse.pharmacy.dao.Util.DBUtil;
 import lk.ijse.pharmacy.dao.custom.MedicationDAO;
 import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
+import lk.ijse.pharmacy.dto.MedicationDTO;
 import lk.ijse.pharmacy.entity.Medication;
-import lk.ijse.pharmacy.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,13 +25,13 @@ public class MedicationDAOImpl implements MedicationDAO {
     }
 
     @Override
-    public ArrayList<lk.ijse.pharmacy.to.Medication> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<MedicationDTO> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM medication");
 
-        ArrayList<lk.ijse.pharmacy.to.Medication> list=new ArrayList<>();
+        ArrayList<MedicationDTO> list=new ArrayList<>();
 
         while (resultSet.next()){
-            list.add(new lk.ijse.pharmacy.to.Medication(resultSet.getString(1),
+            list.add(new MedicationDTO(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getDate(3),
                     resultSet.getInt(4),
@@ -42,11 +42,11 @@ public class MedicationDAOImpl implements MedicationDAO {
     }
 
     @Override
-    public lk.ijse.pharmacy.to.Medication search(String code) throws SQLException, ClassNotFoundException {
+    public Medication search(String code) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM medication WHERE mCode = ? ",code);
 
         while (resultSet.next()){
-            return new lk.ijse.pharmacy.to.Medication(resultSet.getString(1),
+            return new Medication(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getDate(3),
                     resultSet.getInt(4),

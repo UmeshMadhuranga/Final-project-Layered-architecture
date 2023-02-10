@@ -4,9 +4,9 @@ import lk.ijse.pharmacy.dao.DaoFactory;
 import lk.ijse.pharmacy.dao.DaoTypes;
 import lk.ijse.pharmacy.dao.custom.CustomerDAO;
 import lk.ijse.pharmacy.db.DBConnection;
+import lk.ijse.pharmacy.dto.CustomerDTO;
 import lk.ijse.pharmacy.service.custom.CustomerService;
 import lk.ijse.pharmacy.service.util.Convertor;
-import lk.ijse.pharmacy.to.Customer;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -25,8 +25,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean addCustomer(Customer customer) throws SQLException, ClassNotFoundException {
-        return customerDAO.add(convertor.fromECustomer(customer));
+    public boolean addCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+        return customerDAO.add(convertor.toCustomer(customerDTO));
     }
 
     @Override
@@ -35,17 +35,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer searchCustomer(String id) throws SQLException, ClassNotFoundException {
-        return customerDAO.search(id);
+    public CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException {
+        return convertor.fromCustomer(customerDAO.search(id));
     }
 
     @Override
-    public boolean updateCustomer(Customer customer) throws SQLException, ClassNotFoundException {
-        return customerDAO.update(convertor.fromECustomer(customer));
+    public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
+        return customerDAO.update(convertor.toCustomer(customerDTO));
     }
 
     @Override
-    public ArrayList<Customer> getAllCustomer() throws SQLException, ClassNotFoundException {
+    public ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException {
         return customerDAO.getAll();
     }
 

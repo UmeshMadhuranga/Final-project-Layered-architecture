@@ -4,6 +4,7 @@ import lk.ijse.pharmacy.dao.DaoFactory;
 import lk.ijse.pharmacy.dao.DaoTypes;
 import lk.ijse.pharmacy.dao.custom.AdminDAO;
 import lk.ijse.pharmacy.db.DBConnection;
+import lk.ijse.pharmacy.dto.AdminDTO;
 import lk.ijse.pharmacy.service.custom.AdminService;
 import lk.ijse.pharmacy.service.exception.DuplicateException;
 import lk.ijse.pharmacy.service.exception.InUseException;
@@ -25,9 +26,14 @@ public class AdminServiceImpl implements AdminService {
         convertor = new Convertor();
     }
 
+
+//    public boolean addAdmin(Admin admin) throws DuplicateException {
+//        return adminDAO.add(convertor.fromEAdmin(admin));
+//    }
+
     @Override
-    public boolean addAdmin(Admin admin) throws DuplicateException {
-        return adminDAO.add(convertor.fromEAdmin(admin));
+    public boolean addAdmin(AdminDTO adminDTO) {
+        return adminDAO.add(convertor.toAdmin(adminDTO));
     }
 
     @Override
@@ -36,17 +42,22 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin searchAdmin(String id) throws SQLException, ClassNotFoundException {
-        return adminDAO.search(id);
+    public AdminDTO searchAdmin(String id) throws SQLException, ClassNotFoundException {
+        return convertor.fromAdmin(adminDAO.search(id));
     }
 
     @Override
-    public boolean updateAdmin(Admin admin) throws SQLException, ClassNotFoundException {
-        return adminDAO.update(convertor.fromEAdmin(admin));
+    public boolean updateAdmin(AdminDTO adminDTO) throws SQLException, ClassNotFoundException {
+        return adminDAO.update(convertor.toAdmin(adminDTO));
     }
 
+
+//    public boolean updateAdmin(Admin admin) throws SQLException, ClassNotFoundException {
+//        return adminDAO.update(convertor.fromAdmin(admin));
+//    }
+
     @Override
-    public ArrayList<Admin> getAllAdmins() throws SQLException, ClassNotFoundException {
+    public ArrayList<AdminDTO> getAllAdmins() throws SQLException, ClassNotFoundException {
         return adminDAO.getAll();
     }
 
@@ -56,7 +67,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean searchAdminEmail(Admin admin) throws SQLException, ClassNotFoundException {
-        return adminDAO.searchEmail(convertor.fromEAdmin(admin));
+    public boolean searchAdminEmail(AdminDTO adminDTO) throws SQLException, ClassNotFoundException {
+        return adminDAO.searchEmail(convertor.toAdmin(adminDTO));
     }
+
+//    @Override
+//    public boolean searchAdminEmail(Admin admin) throws SQLException, ClassNotFoundException {
+//        return adminDAO.searchEmail(convertor.fromEAdmin(admin));
+//    }
 }

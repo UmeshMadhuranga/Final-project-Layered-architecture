@@ -3,6 +3,7 @@ package lk.ijse.pharmacy.controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import lk.ijse.pharmacy.dto.SupplierDTO;
 import lk.ijse.pharmacy.model.SupplierModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -31,7 +32,7 @@ public class DeleteSupplierFormController {
         }
 
         try {
-            Supplier supplier = supplierService.searchSupplier(txtSId.getText());
+            SupplierDTO supplier = supplierService.searchSupplier(txtSId.getText());
             if (supplier == null) {
                 new Alert(Alert.AlertType.WARNING, "Supplier Not Found!").show();
             } else {

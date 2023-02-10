@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import lk.ijse.pharmacy.dto.AdminDTO;
 import lk.ijse.pharmacy.model.AdminModel;
 import lk.ijse.pharmacy.model.LoginModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
@@ -51,9 +52,11 @@ public class LoginFormController {
             new Alert(Alert.AlertType.ERROR, "Please Enter Email And Password.!").show();
             return;
         }
-        Admin admin = new Admin(email,password);
+
+        AdminDTO adminDTO = new AdminDTO(email,password);
+
         try {
-            boolean isExists = adminService.searchAdminEmail(admin);
+            boolean isExists = adminService.searchAdminEmail(adminDTO);
             if (isExists) {
                 if (LoginModel.resultSet.getString(5).equals("Admin")) {
                     Navigation.navigate(Routes.ADMINLOGIN,pane);

@@ -1,5 +1,7 @@
 package lk.ijse.pharmacy.service.custom;
 
+import lk.ijse.pharmacy.dao.custom.SupplierDAO;
+import lk.ijse.pharmacy.dto.SupplierDTO;
 import lk.ijse.pharmacy.service.SuperService;
 import lk.ijse.pharmacy.service.exception.DuplicateException;
 import lk.ijse.pharmacy.service.exception.InUseException;
@@ -11,15 +13,15 @@ import java.util.ArrayList;
 
 public interface SupplierService extends SuperService {
 
-    boolean addSupplier(Supplier supplier) throws DuplicateException, InUseException, SQLException, ClassNotFoundException;
+    boolean addSupplier(SupplierDTO supplierDAO) throws DuplicateException, InUseException, SQLException, ClassNotFoundException;
 
     boolean deleteSupplier(String sId) throws SQLException, ClassNotFoundException;
 
-    Supplier searchSupplier(String sId) throws SQLException, ClassNotFoundException;
+    SupplierDTO searchSupplier(String sId) throws SQLException, ClassNotFoundException;
 
-    boolean updateSupplier(Supplier supplier) throws SQLException, ClassNotFoundException;
+    boolean updateSupplier(SupplierDTO supplierDTO) throws SQLException, ClassNotFoundException;
 
-    ArrayList<Supplier> getAllSupplier() throws SQLException, ClassNotFoundException;
+    ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException;
 
     ArrayList<String> loadSupplierIDs() throws SQLException, ClassNotFoundException;
 }

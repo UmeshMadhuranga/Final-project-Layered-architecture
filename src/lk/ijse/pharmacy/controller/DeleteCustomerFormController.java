@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import lk.ijse.pharmacy.dto.CustomerDTO;
 import lk.ijse.pharmacy.model.CustomerModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -104,7 +105,7 @@ public class DeleteCustomerFormController {
         String id =String.valueOf(cmbCId.getValue());
 
         try {
-            Customer customer = customerService.searchCustomer(id);
+            CustomerDTO customer = customerService.searchCustomer(id);
             fillTheFields(customer);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -119,7 +120,7 @@ public class DeleteCustomerFormController {
 //        }
     }
 
-    private void fillTheFields(Customer customer) {
+    private void fillTheFields(CustomerDTO customer) {
         txtName.setText(customer.getName());
         txtAddress.setText(customer.getAddress());
         txtPhone.setText(customer.getPhone());

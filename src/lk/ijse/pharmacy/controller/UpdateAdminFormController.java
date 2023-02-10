@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.AdminDTO;
 import lk.ijse.pharmacy.model.AdminModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -131,9 +132,9 @@ public class UpdateAdminFormController {
         String role = selectedToggle.getText();
         String password = txtPassword.getText();
 
-        Admin admin = new Admin(uId,userName,email,address,role,password);
+        AdminDTO adminDTO = new AdminDTO(uId,userName,email,address,role,password);
         try {
-            boolean isUpdate = adminService.updateAdmin(admin);
+            boolean isUpdate = adminService.updateAdmin(adminDTO);
             if (isUpdate) {
                 new Alert(Alert.AlertType.INFORMATION, "Update Successful").show();
             } else {
@@ -173,8 +174,8 @@ public class UpdateAdminFormController {
         String id =String.valueOf(cmbUserID.getValue());
 
         try {
-            Admin admin = adminService.searchAdmin(id);
-            fillTheFields(admin);
+            AdminDTO adminDTO = adminService.searchAdmin(id);
+            fillTheFields(adminDTO);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -188,7 +189,7 @@ public class UpdateAdminFormController {
 //        }
     }
 
-    private void fillTheFields(Admin admin) {
+    private void fillTheFields(AdminDTO admin) {
         txtUserName.setText(admin.getName());
         txtEmail.setText(admin.getEmail());
         txtAddress.setText(admin.getAddress());

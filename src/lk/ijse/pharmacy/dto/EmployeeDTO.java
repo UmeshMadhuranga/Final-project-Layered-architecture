@@ -1,29 +1,29 @@
-package lk.ijse.pharmacy.entity;
+package lk.ijse.pharmacy.dto;
 
-public class Employee implements SuperEntity{
-    private String emId;
+public class EmployeeDTO {
+    private String emID;
     private String name;
     private String email;
     private String address;
     private String phone;
 
-    public Employee(String emID, String name, String email, String phone) {
+    public EmployeeDTO(String emId, String name, String email, String phone) {
     }
 
-    public Employee(String emId, String name, String email, String address, String phone) {
-        this.emId = emId;
+    public EmployeeDTO(String emID, String name, String email, String address, String phone) {
+        this.emID = emID;
         this.name = name;
         this.email = email;
         this.address = address;
         this.phone = phone;
     }
 
-    public String getEmId() {
-        return emId;
+    public String getEmID() {
+        return emID;
     }
 
-    public void setEmId(String emId) {
-        this.emId = emId;
+    public void setEmID(String emID) {
+        this.emID = emID;
     }
 
     public String getName() {
@@ -60,8 +60,8 @@ public class Employee implements SuperEntity{
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "emId='" + emId + '\'' +
+        return "EmployeeDTO{" +
+                "emID='" + emID + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +

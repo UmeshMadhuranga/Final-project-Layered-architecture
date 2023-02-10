@@ -4,11 +4,11 @@ import lk.ijse.pharmacy.dao.DaoFactory;
 import lk.ijse.pharmacy.dao.DaoTypes;
 import lk.ijse.pharmacy.dao.custom.SupplierDAO;
 import lk.ijse.pharmacy.db.DBConnection;
+import lk.ijse.pharmacy.dto.SupplierDTO;
 import lk.ijse.pharmacy.service.custom.SupplierService;
 import lk.ijse.pharmacy.service.exception.DuplicateException;
 import lk.ijse.pharmacy.service.exception.InUseException;
 import lk.ijse.pharmacy.service.util.Convertor;
-import lk.ijse.pharmacy.to.Supplier;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,8 +26,8 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public boolean addSupplier(Supplier supplier) throws DuplicateException, InUseException, SQLException, ClassNotFoundException {
-        return supplierDAO.add(supplier);
+    public boolean addSupplier(SupplierDTO supplier) throws DuplicateException, InUseException, SQLException, ClassNotFoundException {
+        return supplierDAO.add(convertor.toSupplier(supplier));
     }
 
     @Override
@@ -36,17 +36,17 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Supplier searchSupplier(String sId) throws SQLException, ClassNotFoundException {
-        return supplierDAO.search(sId);
+    public SupplierDTO searchSupplier(String sId) throws SQLException, ClassNotFoundException {
+        return convertor.fromSupplier(supplierDAO.search(sId));
     }
 
     @Override
-    public boolean updateSupplier(Supplier supplier) throws SQLException, ClassNotFoundException {
-        return supplierDAO.update(convertor.fromTSupplier(supplier));
+    public boolean updateSupplier(SupplierDTO supplierDTO) throws SQLException, ClassNotFoundException {
+        return supplierDAO.update(convertor.toSupplier(supplierDTO));
     }
 
     @Override
-    public ArrayList<Supplier> getAllSupplier() throws SQLException, ClassNotFoundException {
+    public ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException {
         return supplierDAO.getAll();
     }
 

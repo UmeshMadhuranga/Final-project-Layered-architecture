@@ -2,9 +2,9 @@ package lk.ijse.pharmacy.service.custom.impl;
 
 import lk.ijse.pharmacy.dao.DaoFactory;
 import lk.ijse.pharmacy.dao.DaoTypes;
-import lk.ijse.pharmacy.dao.custom.EmployeeDAO;
 import lk.ijse.pharmacy.dao.custom.MedicationDAO;
 import lk.ijse.pharmacy.db.DBConnection;
+import lk.ijse.pharmacy.dto.MedicationDTO;
 import lk.ijse.pharmacy.service.custom.MedicationService;
 import lk.ijse.pharmacy.service.exception.DuplicateException;
 import lk.ijse.pharmacy.service.exception.InUseException;
@@ -27,8 +27,8 @@ public class MedicationServiceImpl implements MedicationService {
     }
 
     @Override
-    public boolean addMedication(Medication medication) throws DuplicateException, InUseException, SQLException, ClassNotFoundException {
-        return medicationDAO.add(convertor.fromEMedication(medication));
+    public boolean addMedication(MedicationDTO medicationDTO) throws DuplicateException, InUseException, SQLException, ClassNotFoundException {
+        return medicationDAO.add(convertor.toMedication(medicationDTO));
     }
 
     @Override
@@ -37,17 +37,17 @@ public class MedicationServiceImpl implements MedicationService {
     }
 
     @Override
-    public Medication searchMedication(String code) throws SQLException, ClassNotFoundException {
-        return medicationDAO.search(code);
+    public MedicationDTO searchMedication(String code) throws SQLException, ClassNotFoundException {
+        return convertor.fromMedication(medicationDAO.search(code));
     }
 
     @Override
-    public boolean updateMedication(Medication medication) throws SQLException, ClassNotFoundException {
-        return medicationDAO.update(convertor.fromEMedication(medication));
+    public boolean updateMedication(MedicationDTO medicationDTO) throws SQLException, ClassNotFoundException {
+        return medicationDAO.update(convertor.toMedication(medicationDTO));
     }
 
     @Override
-    public ArrayList<Medication> getAllMedication() throws SQLException, ClassNotFoundException {
+    public ArrayList<MedicationDTO> getAllMedication() throws SQLException, ClassNotFoundException {
         return medicationDAO.getAll();
     }
 

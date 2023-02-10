@@ -1,18 +1,18 @@
-package lk.ijse.pharmacy.to;
+package lk.ijse.pharmacy.dto;
 
 import java.util.Date;
 
-public class Medication {
+public class MedicationDTO {
     private String mCode;
     private String description;
     private Date expirationDate;
     private int qty;
     private Double price;
 
-    public Medication() {
+    public MedicationDTO() {
     }
 
-    public Medication(String mCode, String description, Date expirationDate, int qty, Double price) {
+    public MedicationDTO(String mCode, String description, Date expirationDate, int qty, Double price) {
         this.mCode = mCode;
         this.description = description;
         this.expirationDate = expirationDate;
@@ -62,7 +62,7 @@ public class Medication {
 
     @Override
     public String toString() {
-        return "Medication{" +
+        return "MedicationDTO{" +
                 "mCode='" + mCode + '\'' +
                 ", description='" + description + '\'' +
                 ", expirationDate=" + expirationDate +

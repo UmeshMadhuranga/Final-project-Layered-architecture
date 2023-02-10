@@ -3,6 +3,7 @@ package lk.ijse.pharmacy.dao.custom.impl;
 import lk.ijse.pharmacy.dao.Util.DBUtil;
 import lk.ijse.pharmacy.dao.custom.CustomerDAO;
 import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
+import lk.ijse.pharmacy.dto.CustomerDTO;
 import lk.ijse.pharmacy.entity.Customer;
 
 import java.sql.Connection;
@@ -28,22 +29,22 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public ArrayList<lk.ijse.pharmacy.to.Customer> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM customer");
 
-        ArrayList<lk.ijse.pharmacy.to.Customer> arrayList=new ArrayList<>();
+        ArrayList<CustomerDTO> arrayList=new ArrayList<>();
 
         while (resultSet.next()){
-            arrayList.add(new lk.ijse.pharmacy.to.Customer(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4)));
+            arrayList.add(new CustomerDTO(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4)));
         }
         return arrayList;
     }
 
     @Override
-    public lk.ijse.pharmacy.to.Customer search(String id) throws SQLException, ClassNotFoundException {
+    public Customer search(String id) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM customer WHERE cId = ?",id);
         while (resultSet.next()) {
-            return new lk.ijse.pharmacy.to.Customer(resultSet.getString(1),
+            return new Customer(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4));

@@ -2,6 +2,7 @@ package lk.ijse.pharmacy.dao.custom;
 
 import lk.ijse.pharmacy.dao.CrudDAO;
 import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
+import lk.ijse.pharmacy.dto.CustomerDTO;
 import lk.ijse.pharmacy.entity.Admin;
 import lk.ijse.pharmacy.entity.Customer;
 import lk.ijse.pharmacy.entity.OrderDetails;
@@ -14,9 +15,9 @@ public interface CustomerDAO extends CrudDAO<Customer,String> {
 
     boolean add(Customer customer) throws ConstraintViolationException, SQLException, ClassNotFoundException;
 
-    ArrayList<lk.ijse.pharmacy.to.Customer> getAll() throws SQLException, ClassNotFoundException;
+    ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException;
 
-    lk.ijse.pharmacy.to.Customer search(String uId) throws SQLException, ClassNotFoundException;
+    Customer search(String uId) throws SQLException, ClassNotFoundException;
 
     boolean update(Customer customer) throws SQLException, ClassNotFoundException;
 

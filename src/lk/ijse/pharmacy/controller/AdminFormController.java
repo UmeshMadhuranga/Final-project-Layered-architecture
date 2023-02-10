@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.pharmacy.dto.AdminDTO;
 import lk.ijse.pharmacy.model.AdminModel;
 import lk.ijse.pharmacy.model.MedicationModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
@@ -35,7 +36,7 @@ public class AdminFormController {
     public AnchorPane pane1;
     public ComboBox cmbOption;
 
-    public ObservableList<Admin> observableList = FXCollections.observableArrayList();
+    public ObservableList<AdminDTO> observableList = FXCollections.observableArrayList();
     private AdminService adminService;
 
     public void initialize(){
@@ -52,8 +53,8 @@ public class AdminFormController {
 
     private void LoadAdmin() {
         try {
-            ArrayList<Admin> allAdmins = adminService.getAllAdmins();
-            for(Admin admin : allAdmins){
+            ArrayList<AdminDTO> allAdmins = adminService.getAllAdmins();
+            for(AdminDTO admin : allAdmins){
                 observableList.add(admin);
             }
             tblAdmin.setItems(observableList);

@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.pharmacy.dto.EmployeeDTO;
 import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -41,7 +42,7 @@ public class EmployeeFormController {
 
     private EmployeeService employeeService;
 
-    public ObservableList<Employee> observableList = FXCollections.observableArrayList();
+    public ObservableList<EmployeeDTO> observableList = FXCollections.observableArrayList();
 
     public void initialize(){
         LoadOptions();
@@ -79,8 +80,8 @@ public class EmployeeFormController {
 
     private void LoadEmployee() {
         try {
-            ArrayList<Employee> allEmployee = employeeService.getAllEmployee();
-            for(Employee employee : allEmployee){
+            ArrayList<EmployeeDTO> allEmployee = employeeService.getAllEmployee();
+            for(EmployeeDTO employee : allEmployee){
                 observableList.add(employee);
             }
             tblEmployee.setItems(observableList);

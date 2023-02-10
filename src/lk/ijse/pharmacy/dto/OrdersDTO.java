@@ -1,26 +1,26 @@
-package lk.ijse.pharmacy.to;
+package lk.ijse.pharmacy.dto;
 
 import java.util.Date;
 
-public class Orders {
+public class OrdersDTO {
     private String oId;
     private Date date;
     private String cId;
 
-    public Orders() {
+    public OrdersDTO() {
     }
 
-    public Orders(String oId, Date date, String cId) {
+    public OrdersDTO(String oId, Date date, String cId) {
         this.oId = oId;
         this.date = date;
         this.cId = cId;
     }
 
-    public String getoId() {
+    public String getOId() {
         return oId;
     }
 
-    public void setoId(String oId) {
+    public void setOId(String oId) {
         this.oId = oId;
     }
 
@@ -32,11 +32,20 @@ public class Orders {
         this.date = date;
     }
 
-    public String getcId() {
+    public String getCId() {
         return cId;
     }
 
     public void setCId(String cId) {
         this.cId = cId;
+    }
+
+    @Override
+    public String toString() {
+        return "OrdersDTO{" +
+                "oId='" + oId + '\'' +
+                ", date=" + date +
+                ", cId='" + cId + '\'' +
+                '}';
     }
 }

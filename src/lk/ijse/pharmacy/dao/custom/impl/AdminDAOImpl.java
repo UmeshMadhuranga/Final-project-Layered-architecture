@@ -4,6 +4,7 @@ import javafx.scene.control.Alert;
 import lk.ijse.pharmacy.dao.Util.DBUtil;
 import lk.ijse.pharmacy.dao.custom.AdminDAO;
 import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
+import lk.ijse.pharmacy.dto.AdminDTO;
 import lk.ijse.pharmacy.entity.Admin;
 
 import java.sql.Connection;
@@ -38,13 +39,13 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public ArrayList<lk.ijse.pharmacy.to.Admin> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<AdminDTO> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM admin");
 
-        ArrayList<lk.ijse.pharmacy.to.Admin> list=new ArrayList<>();
+        ArrayList<AdminDTO> list=new ArrayList<>();
 
         while (resultSet.next()){
-            list.add(new lk.ijse.pharmacy.to.Admin(resultSet.getString(1),
+            list.add(new AdminDTO(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
@@ -56,11 +57,11 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public lk.ijse.pharmacy.to.Admin search(String id) throws SQLException, ClassNotFoundException {
+    public Admin search(String id) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM admin WHERE uId = ? ", id);
 
         while (resultSet.next()){
-            return new lk.ijse.pharmacy.to.Admin(resultSet.getString(1),
+            return new Admin(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),

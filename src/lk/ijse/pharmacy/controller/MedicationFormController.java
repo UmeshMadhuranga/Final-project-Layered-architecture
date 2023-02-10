@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.pharmacy.dto.MedicationDTO;
 import lk.ijse.pharmacy.model.MedicationModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -33,7 +34,7 @@ public class MedicationFormController {
     public TableColumn colQty;
     public TableColumn colPrice;
 
-    public ObservableList<Medication> observableList = FXCollections.observableArrayList();
+    public ObservableList<MedicationDTO> observableList = FXCollections.observableArrayList();
 
     private MedicationService medicationService;
 
@@ -51,8 +52,8 @@ public class MedicationFormController {
 
     private void LoadMedication() {
         try {
-            ArrayList<Medication> list = medicationService.getAllMedication();
-            for(Medication medication : list){
+            ArrayList<MedicationDTO> list = medicationService.getAllMedication();
+            for(MedicationDTO medication : list){
                 observableList.add(medication);
             }
             tblMedication.setItems(observableList);

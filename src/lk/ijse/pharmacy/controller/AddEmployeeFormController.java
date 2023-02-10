@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.EmployeeDTO;
 import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -112,7 +113,7 @@ public class AddEmployeeFormController {
         String address = txtAddress.getText();
         String phone = txtPhone.getText();
 
-        Employee employee = new Employee(emId,name,email,address,phone);
+        EmployeeDTO employee = new EmployeeDTO(emId,name,email,address,phone);
         try {
             if (employeeService.addEmployee(employee)) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee Added!").show();

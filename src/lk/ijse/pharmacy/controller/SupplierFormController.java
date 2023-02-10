@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.pharmacy.dto.SupplierDTO;
 import lk.ijse.pharmacy.model.MedicationModel;
 import lk.ijse.pharmacy.model.SupplierModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
@@ -35,7 +36,7 @@ public class SupplierFormController {
     public AnchorPane pane1;
     public ComboBox cmbOption;
 
-    public ObservableList<Supplier> observableList = FXCollections.observableArrayList();
+    public ObservableList<SupplierDTO> observableList = FXCollections.observableArrayList();
 
     private SupplierService supplierService;
 
@@ -53,8 +54,8 @@ public class SupplierFormController {
 
     private void LoadSupplier() {
         try {
-            ArrayList<Supplier> list = supplierService.getAllSupplier();
-            for(Supplier supplier : list){
+            ArrayList<SupplierDTO> list = supplierService.getAllSupplier();
+            for(SupplierDTO supplier : list){
                 observableList.add(supplier);
             }
             tblSupplier.setItems(observableList);

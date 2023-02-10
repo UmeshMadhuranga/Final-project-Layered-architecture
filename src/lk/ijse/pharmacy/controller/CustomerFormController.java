@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.pharmacy.dto.CustomerDTO;
 import lk.ijse.pharmacy.model.CustomerModel;
 import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
@@ -33,7 +34,7 @@ public class CustomerFormController {
     public AnchorPane pane1;
     public ComboBox cmbOption;
 
-    public ObservableList<Customer> observableList = FXCollections.observableArrayList();
+    public ObservableList<CustomerDTO> observableList = FXCollections.observableArrayList();
 
     private CustomerService customerService;
 
@@ -51,8 +52,8 @@ public class CustomerFormController {
     private void LoadCustomer() {
         try {
             //ArrayList<Customer> list = CustomerModel.getAllCustomer();
-            ArrayList<Customer> list = customerService.getAllCustomer();
-            for(Customer customer : list){
+            ArrayList<CustomerDTO> list = customerService.getAllCustomer();
+            for(CustomerDTO customer : list){
                 observableList.add(customer);
             }
             tblCustomer.setItems(observableList);

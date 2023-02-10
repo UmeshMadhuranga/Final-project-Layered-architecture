@@ -3,8 +3,8 @@ package lk.ijse.pharmacy.dao.custom.impl;
 import lk.ijse.pharmacy.dao.Util.DBUtil;
 import lk.ijse.pharmacy.dao.custom.SupplierDAO;
 import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
+import lk.ijse.pharmacy.dto.SupplierDTO;
 import lk.ijse.pharmacy.to.Supplier;
-import lk.ijse.pharmacy.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,18 +20,18 @@ public class SupplierDAOImpl implements SupplierDAO {
     }
 
     @Override
-    public boolean add(Supplier supplier) throws ConstraintViolationException, SQLException, ClassNotFoundException {
+    public boolean add(lk.ijse.pharmacy.entity.Supplier supplier) throws ConstraintViolationException, SQLException, ClassNotFoundException {
         return DBUtil.executeUpdate("INSERT INTO supplier VALUES (?,?,?,?,?);", supplier.getSId(), supplier.getName(), supplier.getEmail(), supplier.getAddress(), supplier.getPhone());
     }
 
     @Override
-    public ArrayList<Supplier> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM supplier");
 
-        ArrayList<Supplier> list=new ArrayList<>();
+        ArrayList<SupplierDTO> list=new ArrayList<>();
 
         while (resultSet.next()){
-            list.add(new Supplier(resultSet.getString(1),
+            list.add(new SupplierDTO(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
@@ -42,11 +42,11 @@ public class SupplierDAOImpl implements SupplierDAO {
     }
 
     @Override
-    public Supplier search(String sId) throws SQLException, ClassNotFoundException {
+    public lk.ijse.pharmacy.entity.Supplier search(String sId) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM supplier WHERE sId = ? ",sId);
 
         while (resultSet.next()){
-            return new Supplier(resultSet.getString(1),
+            return new lk.ijse.pharmacy.entity.Supplier(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),

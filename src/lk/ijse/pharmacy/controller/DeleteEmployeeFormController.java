@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import lk.ijse.pharmacy.dto.EmployeeDTO;
 import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -108,7 +109,7 @@ public class DeleteEmployeeFormController {
     public void cmbEmIdOnAction(ActionEvent actionEvent) {
         String id =String.valueOf(cmbEmId.getValue());
         try {
-            Employee employee = employeeService.searchEmployee(id);
+            EmployeeDTO employee = employeeService.searchEmployee(id);
             fillTheFields(employee);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -124,7 +125,7 @@ public class DeleteEmployeeFormController {
 //        }
     }
 
-    private void fillTheFields(Employee employee) {
+    private void fillTheFields(EmployeeDTO employee) {
         txtName.setText(employee.getName());
         txtEmail.setText(employee.getEmail());
         txtAddress.setText(employee.getAddress());

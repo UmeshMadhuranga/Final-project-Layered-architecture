@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.EmployeeDTO;
 import lk.ijse.pharmacy.model.CustomerModel;
 import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
@@ -126,7 +127,7 @@ public class UpdateEmployeeFormController {
         String address = txtAddress.getText();
         String phone = txtPhone.getText();
 
-        Employee employee = new Employee(emId,name,email,address,phone);
+        EmployeeDTO employee = new EmployeeDTO(emId,name,email,address,phone);
         try {
             boolean isUpdated = employeeService.updateEmployee(employee);
             if (isUpdated) {
@@ -167,7 +168,7 @@ public class UpdateEmployeeFormController {
     public void cmbEmIdOnAction(ActionEvent actionEvent) {
         String id =String.valueOf(cmbEmId.getValue());
         try {
-            Employee employee = employeeService.searchEmployee(id);
+            EmployeeDTO employee = employeeService.searchEmployee(id);
             fillTheFields(employee);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -183,7 +184,7 @@ public class UpdateEmployeeFormController {
 //        }
     }
 
-    private void fillTheFields(Employee employee) {
+    private void fillTheFields(EmployeeDTO employee) {
         txtName.setText(employee.getName());
         txtEmail.setText(employee.getEmail());
         txtAddress.setText(employee.getAddress());

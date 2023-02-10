@@ -3,8 +3,8 @@ package lk.ijse.pharmacy.dao.custom.impl;
 import lk.ijse.pharmacy.dao.Util.DBUtil;
 import lk.ijse.pharmacy.dao.custom.EmployeeDAO;
 import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
+import lk.ijse.pharmacy.dto.EmployeeDTO;
 import lk.ijse.pharmacy.entity.Employee;
-import lk.ijse.pharmacy.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,24 +25,26 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public ArrayList<lk.ijse.pharmacy.to.Employee> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<EmployeeDTO> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM employee");
 
-        ArrayList<lk.ijse.pharmacy.to.Employee> list=new ArrayList<>();
+        ArrayList<EmployeeDTO> list=new ArrayList<>();
 
         while (resultSet.next()){
-            list.add(new lk.ijse.pharmacy.to.Employee(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5)));
+            list.add(new EmployeeDTO(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5)));
         }
         return list;
     }
 
     @Override
-    public lk.ijse.pharmacy.to.Employee search(String emId) throws SQLException, ClassNotFoundException {
+    public Employee search(String emId) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM employee WHERE emId = ? ",emId);
 
         while (resultSet.next()){
-            return new lk.ijse.pharmacy.to.Employee(resultSet.getString(1), resultSet.getString(2),
-                    resultSet.getString(3), resultSet.getString(4),
+            return new Employee(resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
                     resultSet.getString(5));
 
         }

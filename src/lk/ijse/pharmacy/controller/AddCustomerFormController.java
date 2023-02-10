@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.CustomerDTO;
 import lk.ijse.pharmacy.model.CustomerModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -96,7 +97,7 @@ public class AddCustomerFormController {
         String address = txtAddress.getText();
         String phone = txtPhone.getText();
 
-        Customer customer = new Customer(cId,name,address,phone);
+        CustomerDTO customer = new CustomerDTO(cId,name,address,phone);
         try {
             if (customerService.addCustomer(customer)) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer Added!").show();

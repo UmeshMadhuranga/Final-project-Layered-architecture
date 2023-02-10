@@ -7,6 +7,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.AdminDTO;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
 import lk.ijse.pharmacy.service.custom.AdminService;
@@ -117,8 +118,8 @@ public class AddAdminFormController {
         String role = selectedToggle.getText();
         String password = txtPassword.getText();
 
-        Admin admin = new Admin(userId,userName,email,address,role,password);
-        if (adminService.addAdmin(admin)) {
+        AdminDTO adminDTO = new AdminDTO(userId,userName,email,address,role,password);
+        if (adminService.addAdmin(adminDTO)) {
             new Alert(Alert.AlertType.CONFIRMATION, "User Added!").show();
         } else {
             new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();

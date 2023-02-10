@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.MedicationDTO;
 import lk.ijse.pharmacy.model.MedicationModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -103,7 +104,7 @@ public class AddMedicationFormController {
         int qty = Integer.parseInt(txtQty.getText());
         Double price = Double.parseDouble(txtPrice.getText());
 
-        Medication medication = new Medication(code,description,ex_Date,qty,price);
+        MedicationDTO medication = new MedicationDTO(code,description,ex_Date,qty,price);
         try {
             if (medicationService.addMedication(medication)) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Medication Added!").show();

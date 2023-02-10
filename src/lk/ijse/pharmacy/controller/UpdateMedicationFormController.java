@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.MedicationDTO;
 import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.model.MedicationModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
@@ -50,7 +51,7 @@ public class UpdateMedicationFormController {
         String mCode = txtMCode.getText();
 
         try {
-            Medication medication = medicationService.searchMedication(mCode);
+            MedicationDTO medication = medicationService.searchMedication(mCode);
             if (medication == null) {
                 new Alert(Alert.AlertType.WARNING, "Medication Not Found!").show();
             } else {
@@ -137,7 +138,7 @@ public class UpdateMedicationFormController {
         int qty = Integer.parseInt(txtQty.getText());
         Double price = Double.parseDouble(txtPrice.getText());
 
-        Medication medication = new Medication(mCode,description,ex_Date,qty,price);
+        MedicationDTO medication = new MedicationDTO(mCode,description,ex_Date,qty,price);
 
         try {
             boolean isUpdated = medicationService.updateMedication(medication);

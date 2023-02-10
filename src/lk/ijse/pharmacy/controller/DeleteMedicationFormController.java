@@ -3,6 +3,7 @@ package lk.ijse.pharmacy.controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import lk.ijse.pharmacy.dto.MedicationDTO;
 import lk.ijse.pharmacy.model.MedicationModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -29,7 +30,7 @@ public class DeleteMedicationFormController {
             new Alert(Alert.AlertType.WARNING,"Please enter ID.").show();
         }
         try {
-            Medication medication = medicationService.searchMedication(txtMCode.getText());
+            MedicationDTO medication = medicationService.searchMedication(txtMCode.getText());
             if (medication == null) {
                 new Alert(Alert.AlertType.WARNING, "Medication Not Found!").show();
             } else {

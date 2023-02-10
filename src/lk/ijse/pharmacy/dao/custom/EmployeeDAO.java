@@ -2,6 +2,7 @@ package lk.ijse.pharmacy.dao.custom;
 
 import lk.ijse.pharmacy.dao.CrudDAO;
 import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
+import lk.ijse.pharmacy.dto.EmployeeDTO;
 import lk.ijse.pharmacy.entity.Employee;
 
 import java.sql.SQLException;
@@ -11,9 +12,9 @@ public interface EmployeeDAO extends CrudDAO<Employee,String> {
 
     boolean add(Employee employee) throws ConstraintViolationException, SQLException, ClassNotFoundException;
 
-    ArrayList<lk.ijse.pharmacy.to.Employee> getAll() throws SQLException, ClassNotFoundException;
+    ArrayList<EmployeeDTO> getAll() throws SQLException, ClassNotFoundException;
 
-    lk.ijse.pharmacy.to.Employee search(String uId) throws SQLException, ClassNotFoundException;
+    Employee search(String uId) throws SQLException, ClassNotFoundException;
 
     boolean update(Employee employee) throws SQLException, ClassNotFoundException;
 

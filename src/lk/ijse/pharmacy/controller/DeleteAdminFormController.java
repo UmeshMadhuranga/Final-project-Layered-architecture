@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import lk.ijse.pharmacy.dto.AdminDTO;
 import lk.ijse.pharmacy.model.AdminModel;
 import lk.ijse.pharmacy.model.EmployeeModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
@@ -107,8 +108,8 @@ public class DeleteAdminFormController {
         String id =String.valueOf(cmbUserID.getValue());
 
         try {
-            Admin admin = adminService.searchAdmin(id);
-            fillTheFields(admin);
+            AdminDTO adminDTO = adminService.searchAdmin(id);
+            fillTheFields(adminDTO);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -122,7 +123,7 @@ public class DeleteAdminFormController {
 //        }
     }
 
-    private void fillTheFields(Admin admin) {
+    private void fillTheFields(AdminDTO admin) {
         txtUserName.setText(admin.getName());
         txtEmail.setText(admin.getEmail());
         txtAddress.setText(admin.getAddress());

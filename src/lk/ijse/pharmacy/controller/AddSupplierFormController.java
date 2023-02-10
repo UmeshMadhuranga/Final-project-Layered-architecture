@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.SupplierDTO;
 import lk.ijse.pharmacy.model.SupplierModel;
 import lk.ijse.pharmacy.service.ServiceFactory;
 import lk.ijse.pharmacy.service.ServiceTypes;
@@ -124,7 +125,7 @@ public class AddSupplierFormController {
             String address = txtAddress.getText();
             String phone = txtPhone.getText();
 
-            Supplier supplier = new Supplier(sId,name,email,address,phone);
+            SupplierDTO supplier = new SupplierDTO(sId,name,email,address,phone);
             try {
                 if (supplierService.addSupplier(supplier)) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Supplier Added!").show();
