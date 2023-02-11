@@ -11,6 +11,11 @@ public class Admin implements SuperEntity{
     public Admin() {
     }
 
+    public Admin(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public Admin(String uId, String name, String email, String address, String role, String password) {
         this.uId = uId;
         this.name = name;

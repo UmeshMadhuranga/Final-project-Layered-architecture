@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class AdminDAOImpl implements AdminDAO {
 
     private final Connection connection;
-    public static ResultSet resultSet;
+    //public static ResultSet resultSet;
 
     public AdminDAOImpl(Connection connection) {
         this.connection = connection;
@@ -102,13 +102,20 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public boolean searchEmail(Admin admin) throws SQLException, ClassNotFoundException {
-        resultSet = DBUtil.executeQuery("SELECT * FROM admin WHERE email = ?", admin.getEmail());
+        ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM admin WHERE email = ?", admin.getEmail());
         while (resultSet.next()) {
             if (resultSet.getString(3).equals(admin.getEmail()) &&
-                    resultSet.getString(6).equals(admin.getPassword())) {
+            resultSet.getString(6).equals(admin.getPassword())) {
                 return true;
             }
         }
+
+        //while (AdminDAOImpl.resultSet.next()) {
+//            if (AdminDAOImpl.resultSet.getString(3).equals(admin.getEmail()) &&
+//                    AdminDAOImpl.resultSet.getString(6).equals(admin.getPassword())) {
+//                return true;
+//            }
+//        }
         return false;
     }
 }

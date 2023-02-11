@@ -8,7 +8,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
+import lk.ijse.pharmacy.dto.AdminDTO;
 import lk.ijse.pharmacy.model.AdminModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.AdminService;
 import lk.ijse.pharmacy.to.Admin;
 
 import java.sql.SQLException;
@@ -31,12 +35,16 @@ public class SignInFormController {
     private Pattern addressPattern;
     private Pattern passwordPattern;
 
+    private AdminService adminService;
+
     public void initialize(){
         userIdPattern = Pattern.compile("^([U0]{2})([0-9]{2})$");
         userNamePattern = Pattern.compile("^([\\w\\s\\D][^0-9]{1,})$");
         emailPattern = Pattern.compile("^([a-z|0-9]{3,})[@]([a-z]{2,})\\.(com|lk)$");
         addressPattern = Pattern.compile("^([A-Za-z0-9\\W\\s]{2,})$");
         passwordPattern = Pattern.compile("^([0-9]{4})$");
+
+        this.adminService = ServiceFactory.getInstance().getService(ServiceTypes.ADMIN);
     }
 
     public void btnAddUserOnAction(ActionEvent actionEvent) {
@@ -56,19 +64,27 @@ public class SignInFormController {
         String role = selectedToggle.getText();
         String password = txtPassword.getText();
 
-        Admin admin = new Admin(userId,userName,email,address,role,password);
-        try {
-            boolean isAdded = AdminModel.addNewUser(admin);
-            if (isAdded) {
-                new Alert(Alert.AlertType.CONFIRMATION, "User Added!").show();
-            } else {
-                new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.WARNING, "Driver not found!").show();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        AdminDTO admin = new AdminDTO(userId,userName,email,address,role,password);
+
+        boolean isAdded = adminService.addAdmin(admin);
+        if (isAdded) {
+            new Alert(Alert.AlertType.CONFIRMATION, "User Added!").show();
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
         }
+
+//        try {
+//            boolean isAdded = AdminModel.addNewUser(admin);
+//            if (isAdded) {
+//                new Alert(Alert.AlertType.CONFIRMATION, "User Added!").show();
+//            } else {
+//                new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
+//            }
+//        } catch (SQLException e) {
+//            new Alert(Alert.AlertType.WARNING, "Driver not found!").show();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void btnCancelOnAction(ActionEvent actionEvent) {

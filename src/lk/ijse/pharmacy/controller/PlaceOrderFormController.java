@@ -10,9 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import lk.ijse.pharmacy.dto.CustomerDTO;
+import lk.ijse.pharmacy.dto.MedicationDTO;
 import lk.ijse.pharmacy.model.CustomerModel;
 import lk.ijse.pharmacy.model.MedicationModel;
 import lk.ijse.pharmacy.model.OrderModel;
+import lk.ijse.pharmacy.service.ServiceFactory;
+import lk.ijse.pharmacy.service.ServiceTypes;
+import lk.ijse.pharmacy.service.custom.CustomerService;
+import lk.ijse.pharmacy.service.custom.MedicationService;
+import lk.ijse.pharmacy.service.custom.OrdersService;
 import lk.ijse.pharmacy.to.*;
 
 import java.io.IOException;
@@ -43,6 +50,10 @@ public class PlaceOrderFormController {
     public TableColumn colTotal;
     public TableColumn colAction;
 
+    private CustomerService customerService;
+    private MedicationService medicationService;
+    private OrdersService ordersService;
+
     private ObservableList<PlaceOrderTM> obList = FXCollections.observableArrayList();
 
     public void initialize() {
@@ -51,37 +62,62 @@ public class PlaceOrderFormController {
         loadCustomerIds();
         LoadMedicationCodes();
         setCellValueFactory();
+
+        this.customerService = ServiceFactory.getInstance().getService(ServiceTypes.CUSTOMER);
+        this.medicationService = ServiceFactory.getInstance().getService(ServiceTypes.MEDICATION);
+        this.ordersService = ServiceFactory.getInstance().getService(ServiceTypes.ORDERS);
     }
 
     private void LoadMedicationCodes() {
         ObservableList<String> observableList = FXCollections.observableArrayList();
 
         try {
-            ArrayList<String> codeList = CustomerModel.loadMedicationCode();
-            for (String code : codeList) {
+            ArrayList<String> list = medicationService.loadMedicationCodes();
+            for (String code : list) {
                 observableList.add(code);
             }
             cmbMedicationCode.setItems(observableList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            ArrayList<String> codeList = CustomerModel.loadMedicationCode();
+//            for (String code : codeList) {
+//                observableList.add(code);
+//            }
+//            cmbMedicationCode.setItems(observableList);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void loadCustomerIds() {
         ObservableList<String> observableList = FXCollections.observableArrayList();
+
         try {
-            ArrayList<String> idList = CustomerModel.loadCustomerIds();
-            for (String id : idList) {
+            ArrayList<String> list = customerService.loadCustomerIDs();
+            for (String id : list) {
                 observableList.add(id);
             }
             cmbCustomerID.setItems(observableList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            ArrayList<String> idList = CustomerModel.loadCustomerIds();
+//            for (String id : idList) {
+//                observableList.add(id);
+//            }
+//            cmbCustomerID.setItems(observableList);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void loadOrderDate() {
@@ -89,12 +125,20 @@ public class PlaceOrderFormController {
     }
 
     private void loadNextOrderId() {
+
         try {
-            String orderId = OrderModel.generateNextOrderId();
+            String orderId = ordersService.generateNextOrderId();
             lblBillingID.setText(orderId);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            String orderId = OrderModel.generateNextOrderId();
+//            lblBillingID.setText(orderId);
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void btnNewCustomerOnAction(ActionEvent actionEvent) throws IOException {
@@ -109,17 +153,25 @@ public class PlaceOrderFormController {
         String code =String.valueOf(cmbMedicationCode.getValue());
 
         try {
-            Medication medication = MedicationModel.searchMedication(code);
-            fillTheFields(medication);
+            MedicationDTO medicationDTO = medicationService.searchMedication(code);
+            fillTheFields(medicationDTO);
             txtQty.requestFocus();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            Medication medication = MedicationModel.searchMedication(code);
+//            fillTheFields(medication);
+//            txtQty.requestFocus();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    private void fillTheFields(Medication medication) {
+    private void fillTheFields(MedicationDTO medication) {
         lblDescription.setText(medication.getDescription());
         lblUnitPrice.setText(medication.getPrice()+"");
         lblQty.setText(medication.getQty()+"");
@@ -129,16 +181,25 @@ public class PlaceOrderFormController {
         String id = String.valueOf(cmbCustomerID.getValue());
 
         try {
-            Customer customer = CustomerModel.searchCustomer(id);
-            fillCustomerName(customer);
+            CustomerDTO customerDTO = customerService.searchCustomer(id);
+            fillCustomerName(customerDTO);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+//        try {
+//            Customer customer = CustomerModel.searchCustomer(id);
+//            fillCustomerName(customer);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    private void fillCustomerName(Customer customer) {
+    private void fillCustomerName(CustomerDTO customer) {
         lblCustomerName.setText(customer.getName());
     }
 

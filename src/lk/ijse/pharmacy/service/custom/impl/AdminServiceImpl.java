@@ -26,11 +26,6 @@ public class AdminServiceImpl implements AdminService {
         convertor = new Convertor();
     }
 
-
-//    public boolean addAdmin(Admin admin) throws DuplicateException {
-//        return adminDAO.add(convertor.fromEAdmin(admin));
-//    }
-
     @Override
     public boolean addAdmin(AdminDTO adminDTO) {
         return adminDAO.add(convertor.toAdmin(adminDTO));
@@ -51,11 +46,6 @@ public class AdminServiceImpl implements AdminService {
         return adminDAO.update(convertor.toAdmin(adminDTO));
     }
 
-
-//    public boolean updateAdmin(Admin admin) throws SQLException, ClassNotFoundException {
-//        return adminDAO.update(convertor.fromAdmin(admin));
-//    }
-
     @Override
     public ArrayList<AdminDTO> getAllAdmins() throws SQLException, ClassNotFoundException {
         return adminDAO.getAll();
@@ -70,9 +60,4 @@ public class AdminServiceImpl implements AdminService {
     public boolean searchAdminEmail(AdminDTO adminDTO) throws SQLException, ClassNotFoundException {
         return adminDAO.searchEmail(convertor.toAdmin(adminDTO));
     }
-
-//    @Override
-//    public boolean searchAdminEmail(Admin admin) throws SQLException, ClassNotFoundException {
-//        return adminDAO.searchEmail(convertor.fromEAdmin(admin));
-//    }
 }
