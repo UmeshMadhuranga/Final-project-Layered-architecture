@@ -39,13 +39,13 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public ArrayList<AdminDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Admin> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM admin");
 
-        ArrayList<AdminDTO> list=new ArrayList<>();
+        ArrayList<Admin> list=new ArrayList<>();
 
         while (resultSet.next()){
-            list.add(new AdminDTO(resultSet.getString(1),
+            list.add(new Admin(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
@@ -101,14 +101,12 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public boolean searchEmail(Admin admin) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM admin WHERE email = ?", admin.getEmail());
-        while (resultSet.next()) {
-            if (resultSet.getString(3).equals(admin.getEmail()) &&
-            resultSet.getString(6).equals(admin.getPassword())) {
-                return true;
-            }
-        }
+    public ResultSet searchEmail(Admin admin) throws SQLException, ClassNotFoundException {
+
+        return DBUtil.executeQuery("SELECT * FROM admin WHERE email = ?", admin.getEmail());
+
+
+
 
         //while (AdminDAOImpl.resultSet.next()) {
 //            if (AdminDAOImpl.resultSet.getString(3).equals(admin.getEmail()) &&
@@ -116,6 +114,6 @@ public class AdminDAOImpl implements AdminDAO {
 //                return true;
 //            }
 //        }
-        return false;
+
     }
 }

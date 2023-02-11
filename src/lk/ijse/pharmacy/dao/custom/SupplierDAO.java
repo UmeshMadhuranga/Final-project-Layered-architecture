@@ -13,15 +13,4 @@ import java.util.ArrayList;
 
 public interface SupplierDAO extends CrudDAO<Supplier,String> {
 
-    boolean add(Supplier supplier) throws ConstraintViolationException, SQLException, ClassNotFoundException;
-
-    ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException;
-
-    Supplier search(String sId) throws SQLException, ClassNotFoundException;
-
-    boolean update(Supplier supplier) throws SQLException, ClassNotFoundException;
-
-    boolean delete(String sId) throws SQLException, ClassNotFoundException;
-
-    ArrayList<String> loadIDs() throws SQLException, ClassNotFoundException;
 }

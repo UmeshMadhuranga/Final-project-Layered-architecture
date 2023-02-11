@@ -6,12 +6,13 @@ import lk.ijse.pharmacy.service.exception.DuplicateException;
 import lk.ijse.pharmacy.service.exception.InUseException;
 import lk.ijse.pharmacy.to.Admin;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface AdminService extends SuperService {
 
-    boolean addAdmin(AdminDTO adminDTO);
+    boolean addAdmin(AdminDTO adminDTO) throws SQLException, ClassNotFoundException;
 
     boolean deleteAdmin(String id) throws InUseException, DuplicateException, SQLException, ClassNotFoundException;
 
@@ -23,5 +24,5 @@ public interface AdminService extends SuperService {
 
     ArrayList<String> loadAdminIDs() throws SQLException, ClassNotFoundException;
 
-    boolean searchAdminEmail(AdminDTO admin) throws SQLException, ClassNotFoundException;
+    ResultSet searchAdminEmail(AdminDTO admin) throws SQLException, ClassNotFoundException;
 }

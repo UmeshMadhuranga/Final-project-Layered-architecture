@@ -5,6 +5,7 @@ import lk.ijse.pharmacy.dao.DaoTypes;
 import lk.ijse.pharmacy.dao.custom.CustomerDAO;
 import lk.ijse.pharmacy.db.DBConnection;
 import lk.ijse.pharmacy.dto.CustomerDTO;
+import lk.ijse.pharmacy.entity.Customer;
 import lk.ijse.pharmacy.service.custom.CustomerService;
 import lk.ijse.pharmacy.service.util.Convertor;
 
@@ -46,7 +47,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException {
-        return customerDAO.getAll();
+        ArrayList<CustomerDTO> list = new ArrayList<>();
+
+        ArrayList<Customer> all = customerDAO.getAll();
+        for (Customer customer: all) {
+            list.add(convertor.fromCustomer(customer));
+        }
+        return list;
     }
 
     @Override

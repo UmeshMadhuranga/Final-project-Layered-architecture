@@ -25,13 +25,13 @@ public class MedicationDAOImpl implements MedicationDAO {
     }
 
     @Override
-    public ArrayList<MedicationDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Medication> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM medication");
 
-        ArrayList<MedicationDTO> list=new ArrayList<>();
+        ArrayList<Medication> list=new ArrayList<>();
 
         while (resultSet.next()){
-            list.add(new MedicationDTO(resultSet.getString(1),
+            list.add(new Medication(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getDate(3),
                     resultSet.getInt(4),
@@ -69,6 +69,11 @@ public class MedicationDAOImpl implements MedicationDAO {
     @Override
     public boolean delete(String code) throws SQLException, ClassNotFoundException {
         return DBUtil.executeUpdate("DELETE FROM medication WHERE mCode = ?",code);
+    }
+
+    @Override
+    public ArrayList<String> loadIDs() throws SQLException, ClassNotFoundException {
+        return null;
     }
 
     @Override

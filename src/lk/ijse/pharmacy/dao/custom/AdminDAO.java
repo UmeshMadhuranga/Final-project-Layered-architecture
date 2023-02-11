@@ -8,23 +8,12 @@ import lk.ijse.pharmacy.entity.SuperEntity;
 import lk.ijse.pharmacy.service.exception.DuplicateException;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface AdminDAO extends CrudDAO<Admin,String> {
 
-    boolean add(Admin admin) throws ConstraintViolationException;
-
-    ArrayList<AdminDTO> getAll() throws SQLException, ClassNotFoundException;
-
-    Admin search(String uId) throws SQLException, ClassNotFoundException;
-
-    boolean update(Admin admin) throws SQLException, ClassNotFoundException;
-
-    boolean delete(String uId) throws SQLException, ClassNotFoundException;
-
-    ArrayList<String> loadIDs() throws SQLException, ClassNotFoundException;
-
-    boolean searchEmail(Admin admin) throws SQLException, ClassNotFoundException;
+    public ResultSet searchEmail(Admin admin) throws SQLException, ClassNotFoundException;
 
 }

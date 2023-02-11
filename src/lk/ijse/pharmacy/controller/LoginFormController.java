@@ -23,6 +23,7 @@ import lk.ijse.pharmacy.util.Routes;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -36,7 +37,7 @@ public class LoginFormController {
 
     private AdminService adminService;
 
-    public void initializer(){
+    public void initialize(){
         this.adminService = ServiceFactory.getInstance().getService(ServiceTypes.ADMIN);
     }
 
@@ -56,19 +57,32 @@ public class LoginFormController {
         AdminDTO adminDTO = new AdminDTO(email,password);
 
         try {
-            boolean isExists = adminService.searchAdminEmail(adminDTO);
-            if (isExists) {
-                if (LoginModel.resultSet.getString(5).equals("Admin")) {
-                    Navigation.navigate(Routes.ADMINLOGIN,pane);
-                } else {
-                    Navigation.navigate(Routes.EMPLOYEELOGIN,pane);
+            ResultSet resultSet = adminService.searchAdminEmail(adminDTO);
+            while (resultSet.next()) {
+                if (resultSet.getString(3).equals(email) &&
+                        resultSet.getString(6).equals(password)) {
+                    System.out.println(resultSet.getString(5));
                 }
-            } else {
-                new Alert(Alert.AlertType.WARNING,"Please enter correct password and email.!").show();
             }
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.WARNING,"Please enter correct password and email.!").show();
         }
+//        try {
+//            String role = adminService.searchAdminEmail(adminDTO);
+//            System.out.println(role);
+//
+//            if (isExists) {
+//                if (LoginModel.resultSet.getString(5).equals("Admin")) {
+//                    Navigation.navigate(Routes.ADMINLOGIN,pane);
+//                } else {
+//                    Navigation.navigate(Routes.EMPLOYEELOGIN,pane);
+//                }
+//            } else {
+//                new Alert(Alert.AlertType.WARNING,"Please enter correct password and email.!").show();
+//            }
+//        } catch (SQLException | ClassNotFoundException e) {
+//            new Alert(Alert.AlertType.WARNING, "Duplicate primary key!").show();
+//        }
 
 //        try {
 //            boolean b = LoginModel.searchEmail(admin);
@@ -83,7 +97,7 @@ public class LoginFormController {
 //            }
 //        } catch (SQLException e) {
 //            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
+//        } catch ( ClassNotFoundException e) {
 //            e.printStackTrace();
 //        }
     }

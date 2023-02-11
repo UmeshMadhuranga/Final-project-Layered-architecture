@@ -12,15 +12,5 @@ import java.util.ArrayList;
 
 public interface MedicationDAO extends CrudDAO<Medication,String> {
 
-    boolean add(Medication medication) throws ConstraintViolationException, SQLException, ClassNotFoundException;
-
-    ArrayList<MedicationDTO> getAll() throws SQLException, ClassNotFoundException;
-
-    Medication search(String code) throws SQLException, ClassNotFoundException;
-
-    boolean update(Medication medication) throws SQLException, ClassNotFoundException;
-
-    boolean delete(String code) throws SQLException, ClassNotFoundException;
-
     ArrayList<String> loadCodes() throws SQLException, ClassNotFoundException;
 }

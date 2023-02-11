@@ -13,6 +13,7 @@ import lk.ijse.pharmacy.service.ServiceTypes;
 import lk.ijse.pharmacy.service.custom.AdminService;
 import lk.ijse.pharmacy.to.Admin;
 
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class AddAdminFormController {
@@ -119,10 +120,14 @@ public class AddAdminFormController {
         String password = txtPassword.getText();
 
         AdminDTO adminDTO = new AdminDTO(userId,userName,email,address,role,password);
-        if (adminService.addAdmin(adminDTO)) {
-            new Alert(Alert.AlertType.CONFIRMATION, "User Added!").show();
-        } else {
-            new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
+        try {
+            if (adminService.addAdmin(adminDTO)) {
+                new Alert(Alert.AlertType.CONFIRMATION, "User Added!").show();
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
  /*       try {

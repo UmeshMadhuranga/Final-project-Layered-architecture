@@ -5,6 +5,7 @@ import lk.ijse.pharmacy.dao.DaoTypes;
 import lk.ijse.pharmacy.dao.custom.SupplierDAO;
 import lk.ijse.pharmacy.db.DBConnection;
 import lk.ijse.pharmacy.dto.SupplierDTO;
+import lk.ijse.pharmacy.entity.Supplier;
 import lk.ijse.pharmacy.service.custom.SupplierService;
 import lk.ijse.pharmacy.service.exception.DuplicateException;
 import lk.ijse.pharmacy.service.exception.InUseException;
@@ -47,7 +48,13 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public ArrayList<SupplierDTO> getAllSupplier() throws SQLException, ClassNotFoundException {
-        return supplierDAO.getAll();
+        ArrayList<SupplierDTO> list = new ArrayList<>();
+
+        ArrayList<Supplier> all = supplierDAO.getAll();
+        for (Supplier supplier: all) {
+            list.add(convertor.fromSupplier(supplier));
+        }
+        return list;
     }
 
     @Override

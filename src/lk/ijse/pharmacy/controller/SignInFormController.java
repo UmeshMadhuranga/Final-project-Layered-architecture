@@ -66,11 +66,17 @@ public class SignInFormController {
 
         AdminDTO admin = new AdminDTO(userId,userName,email,address,role,password);
 
-        boolean isAdded = adminService.addAdmin(admin);
-        if (isAdded) {
-            new Alert(Alert.AlertType.CONFIRMATION, "User Added!").show();
-        } else {
-            new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
+        try {
+            boolean isAdded = adminService.addAdmin(admin);
+            if (isAdded) {
+                new Alert(Alert.AlertType.CONFIRMATION, "User Added!").show();
+            } else {
+                new Alert(Alert.AlertType.WARNING, "Something Wrong!").show();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
 //        try {

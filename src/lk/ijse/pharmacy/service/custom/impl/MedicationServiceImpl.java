@@ -5,11 +5,11 @@ import lk.ijse.pharmacy.dao.DaoTypes;
 import lk.ijse.pharmacy.dao.custom.MedicationDAO;
 import lk.ijse.pharmacy.db.DBConnection;
 import lk.ijse.pharmacy.dto.MedicationDTO;
+import lk.ijse.pharmacy.entity.Medication;
 import lk.ijse.pharmacy.service.custom.MedicationService;
 import lk.ijse.pharmacy.service.exception.DuplicateException;
 import lk.ijse.pharmacy.service.exception.InUseException;
 import lk.ijse.pharmacy.service.util.Convertor;
-import lk.ijse.pharmacy.to.Medication;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -48,7 +48,13 @@ public class MedicationServiceImpl implements MedicationService {
 
     @Override
     public ArrayList<MedicationDTO> getAllMedication() throws SQLException, ClassNotFoundException {
-        return medicationDAO.getAll();
+        ArrayList<MedicationDTO> list = new ArrayList<>();
+
+        ArrayList<Medication> all = medicationDAO.getAll();
+        for (Medication medication : all) {
+            list.add(convertor.fromMedication(medication));
+        }
+        return list;
     }
 
     @Override

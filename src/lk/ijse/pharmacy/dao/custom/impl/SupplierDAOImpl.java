@@ -4,7 +4,7 @@ import lk.ijse.pharmacy.dao.Util.DBUtil;
 import lk.ijse.pharmacy.dao.custom.SupplierDAO;
 import lk.ijse.pharmacy.dao.exception.ConstraintViolationException;
 import lk.ijse.pharmacy.dto.SupplierDTO;
-import lk.ijse.pharmacy.to.Supplier;
+import lk.ijse.pharmacy.entity.Supplier;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,13 +25,13 @@ public class SupplierDAOImpl implements SupplierDAO {
     }
 
     @Override
-    public ArrayList<SupplierDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Supplier> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM supplier");
 
-        ArrayList<SupplierDTO> list=new ArrayList<>();
+        ArrayList<Supplier> list=new ArrayList<>();
 
         while (resultSet.next()){
-            list.add(new SupplierDTO(resultSet.getString(1),
+            list.add(new Supplier(resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),

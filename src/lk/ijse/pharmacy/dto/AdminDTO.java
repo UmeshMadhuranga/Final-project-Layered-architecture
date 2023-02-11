@@ -11,6 +11,10 @@ public class AdminDTO {
     public AdminDTO() {
     }
 
+    public AdminDTO(String role) {
+        this.role = role;
+    }
+
     public AdminDTO(String email, String password) {
         this.email = email;
         this.password = password;

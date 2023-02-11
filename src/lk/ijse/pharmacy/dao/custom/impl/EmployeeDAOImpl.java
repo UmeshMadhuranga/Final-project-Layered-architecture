@@ -25,13 +25,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public ArrayList<EmployeeDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Employee> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM employee");
 
-        ArrayList<EmployeeDTO> list=new ArrayList<>();
+        ArrayList<Employee> list=new ArrayList<>();
 
         while (resultSet.next()){
-            list.add(new EmployeeDTO(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5)));
+            list.add(new Employee(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5)));
         }
         return list;
     }

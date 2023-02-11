@@ -29,13 +29,13 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Customer> getAll() throws SQLException, ClassNotFoundException {
         ResultSet resultSet = DBUtil.executeQuery("SELECT * FROM customer");
 
-        ArrayList<CustomerDTO> arrayList=new ArrayList<>();
+        ArrayList<Customer> arrayList=new ArrayList<>();
 
         while (resultSet.next()){
-            arrayList.add(new CustomerDTO(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4)));
+            arrayList.add(new Customer(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4)));
         }
         return arrayList;
     }

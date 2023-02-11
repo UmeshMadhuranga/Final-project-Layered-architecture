@@ -5,6 +5,7 @@ import lk.ijse.pharmacy.dao.DaoTypes;
 import lk.ijse.pharmacy.dao.custom.EmployeeDAO;
 import lk.ijse.pharmacy.db.DBConnection;
 import lk.ijse.pharmacy.dto.EmployeeDTO;
+import lk.ijse.pharmacy.entity.Employee;
 import lk.ijse.pharmacy.service.custom.EmployeeService;
 import lk.ijse.pharmacy.service.exception.DuplicateException;
 import lk.ijse.pharmacy.service.exception.InUseException;
@@ -48,7 +49,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ArrayList<EmployeeDTO> getAllEmployee() throws SQLException, ClassNotFoundException {
-        return employeeDAO.getAll();
+        ArrayList<EmployeeDTO> list = new ArrayList<>();
+
+        ArrayList<Employee> all = employeeDAO.getAll();
+        for (Employee employee : all) {
+            list.add(convertor.fromEmployee(employee));
+        }
+        return list;
     }
 
     @Override

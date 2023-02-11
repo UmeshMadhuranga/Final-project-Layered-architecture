@@ -25,6 +25,10 @@ public class Admin implements SuperEntity{
         this.password = password;
     }
 
+    public Admin(String role) {
+        this.role = role;
+    }
+
     public String getUId() {
         return uId;
     }
